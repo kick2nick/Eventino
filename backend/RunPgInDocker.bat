@@ -1,0 +1,1 @@
+docker run --name hakaton-postgres -e POSTGRES_PASSWORD=dbpass -d -p 5432:5432 postgres
