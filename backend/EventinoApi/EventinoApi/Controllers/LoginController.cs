@@ -32,8 +32,8 @@ namespace EventinoApi.Controllers
             {
                 return Unauthorized();
             }
-            var a = await _signInManager.PasswordSignInAsync(user, loginInfo.Password, false, false);
-            return a.Succeeded ? Ok() : Unauthorized();
+            var signInResult = await _signInManager.PasswordSignInAsync(user, loginInfo.Password, false, false);
+            return signInResult.Succeeded ? Ok() : Unauthorized();
         }
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
