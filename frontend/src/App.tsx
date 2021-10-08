@@ -1,17 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './App.scss';
+import Main from './components/Main/Main';
 
-function App() {
+const App: FC = () => {
   return (
     <div className="App">
       <header className="App__header" />
-      <main>
-        <h1>The Best SPA ever!!!</h1>
-        <div>(Eventino)</div>
-      </main>
+      <Main />
       <footer />
     </div>
   );
-}
+};
 
 export default App;

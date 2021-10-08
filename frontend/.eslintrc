@@ -8,7 +8,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb",
+    // "airbnb",   // слишком жестко =\
     "airbnb-typescript"
   ],
   "parser": "@typescript-eslint/parser",
@@ -28,6 +28,8 @@
     "no-nested-ternary": "off",
     "newline-after-import": "off",
     "no-console": "warn",
+    "react/jsx-filename-extension": "off",
+    "import/no-extraneous-dependencies": "off",
     "linebreak-style": [
       "warn",
       "unix"
