@@ -1,5 +1,9 @@
+using Dal.DbContext;
+using Domain.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,7 +17,16 @@ namespace EventinoApi
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            using (IServiceScope scope = host.Services.CreateScope())
+            {
+                var dbContex = scope.ServiceProvider.GetRequiredService<EventinoDbContext>();
+                dbContex.Database.EnsureDeleted();
+                dbContex.Database.EnsureCreated();
+
+                Seed.SeedUsers(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
+            }
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
