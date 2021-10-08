@@ -26,6 +26,14 @@ namespace EventinoApi
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().Build();
+                });
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -41,7 +49,12 @@ namespace EventinoApi
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventinoApi v1"));
+                app.UseCors();
             }
+
+
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
 
             app.UseRouting();
 
