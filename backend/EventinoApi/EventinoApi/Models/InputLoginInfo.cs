@@ -2,7 +2,7 @@
 
 namespace Models
 {
-    public record LoginInfo
+    public record InputLoginInfo
     {
         [EmailAddress]
         [Required]
