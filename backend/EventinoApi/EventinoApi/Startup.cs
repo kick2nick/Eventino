@@ -1,4 +1,5 @@
 using Dal.DbContext;
+using Domain.Configuration;
 using Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
-using FileTransfer.Configuration;
 
 namespace EventinoApi
 {
@@ -36,7 +36,7 @@ namespace EventinoApi
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventinoApi", Version = "v1" }));
 
-            services.AddAzureBlobStorage(Configuration.GetSection("AzureBlobStorage"));
+            services.AddBllServices(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
