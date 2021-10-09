@@ -24,7 +24,7 @@ namespace EventinoApi.Controllers
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> Login([FromBody] LoginInfo loginInfo)
+        public async Task<ActionResult> Login([FromBody] InputLoginInfo loginInfo)
         {
             var user = await _signInManager.UserManager.FindByEmailAsync(loginInfo.Email);
 
