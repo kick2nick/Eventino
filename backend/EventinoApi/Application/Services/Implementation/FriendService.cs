@@ -25,11 +25,11 @@ namespace Application.Services.Implementation
         public async Task DeleteFriendAsync(Guid userId, Guid friendId) =>
             await _genericRepository.DeleteFriendAsync(userId, friendId);
 
-        public async Task<IReadOnlyCollection<User>> GetUserFriendsAsync(Guid userId)
+        public async Task<IReadOnlyCollection<Guid>> GetUserFriendsAsync(Guid userId)
         {
             var user = await _genericRepository.GetUserWithFriendsAsync(userId);
 
-            return user.Friends.ToList().AsReadOnly();
+            return user.FriendIds.ToList().AsReadOnly();
         }
     }
 }

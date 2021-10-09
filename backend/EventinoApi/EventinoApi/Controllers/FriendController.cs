@@ -22,7 +22,7 @@ namespace EventinoApi.Controllers
 
         [HttpGet]
         [AllowAnonymous] // for testing
-        public async Task<IReadOnlyCollection<User>> GetUserFriends(Guid userId)
+        public async Task<IReadOnlyCollection<Guid>> GetUserFriends(Guid userId)
         {
             return await _friendService.GetUserFriendsAsync(userId);
         }
