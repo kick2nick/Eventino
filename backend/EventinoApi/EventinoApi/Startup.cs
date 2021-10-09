@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using Dal.Configuration;
 
 namespace EventinoApi
 {
@@ -51,6 +52,8 @@ namespace EventinoApi
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventinoApi", Version = "v1" }));
 
             services.AddBllServices(Configuration);
+
+            services.AddDal();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

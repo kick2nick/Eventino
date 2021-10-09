@@ -8,7 +8,6 @@ namespace Dal.DbContext
 {
     public class EventinoDbContext : IdentityDbContext<User,IdentityRole<Guid>,Guid>
     {
-        public DbSet<User> Users { get; set; }
         public DbSet<Interest> Interests { get; set; }
         public DbSet<Event> Events { get; set; }
 
@@ -32,6 +31,10 @@ namespace Dal.DbContext
             builder.Entity<User>()
                 .HasMany(u => u.Interests)
                 .WithMany(i => i.Users);
+
+            builder.Entity<User>()
+                .HasMany(s => s.Friendships)
+                .WithOne(s => s.User1);
 
             base.OnModelCreating(builder);
         }
