@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Dal
 {
-    public interface IUserRepository
+    public interface IUserRepository : IAsyncRepository<User>
     {
         Task<IReadOnlyCollection<Guid>> GetUserFriendsAsync(Guid userId);
         Task AddFriendAsync(Guid userId, Guid friendId);

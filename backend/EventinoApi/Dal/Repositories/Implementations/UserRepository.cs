@@ -11,16 +11,16 @@ namespace Dal
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        private readonly DbSet<User> _users;
+        private DbSet<User> Users { get => _context.Users; }
         public UserRepository(EventinoDbContext context) : base(context)
         {
-            _users = Context.Users;
+            
         }
 
         public async Task AddFriendAsync(Guid userId, Guid friendId)
         {
-            var user1 = await Context.Users.Include(s => s.Friendships).FirstOrDefaultAsync(s => s.Id == userId);
-            var user2 = await Context.Users.Include(s => s.Friendships).FirstOrDefaultAsync(s => s.Id == friendId);
+            var user1 = await _context.Users.Include(s => s.Friendships).FirstOrDefaultAsync(s => s.Id == userId);
+            var user2 = await _context.Users.Include(s => s.Friendships).FirstOrDefaultAsync(s => s.Id == friendId);
             _ = user1 ?? throw new UserNotFoundException(userId.ToString());
             _ = user2 ?? throw new UserNotFoundException(friendId.ToString());
 
@@ -29,15 +29,15 @@ namespace Dal
                 throw new NotImplementedException();
             }
 
-            Context.Set<Friendship>().Add(new Friendship() { User1 = user1, User2 = user2 });
-            Context.Set<Friendship>().Add(new Friendship() { User1 = user2, User2 = user1 });
-            await Context.SaveChangesAsync();
+            _context.Set<Friendship>().Add(new Friendship() { User1 = user1, User2 = user2 });
+            _context.Set<Friendship>().Add(new Friendship() { User1 = user2, User2 = user1 });
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteFriendAsync(Guid userId, Guid friendId)
         {
-            var user = await Context.Users.Include(s => s.Friendships).FirstOrDefaultAsync(s => s.Id == userId);
-            var friend = await Context.Users.Include(s => s.Friendships).FirstOrDefaultAsync(s => s.Id == friendId);
+            var user = await _context.Users.Include(s => s.Friendships).FirstOrDefaultAsync(s => s.Id == userId);
+            var friend = await _context.Users.Include(s => s.Friendships).FirstOrDefaultAsync(s => s.Id == friendId);
             _ = user ?? throw new UserNotFoundException(userId.ToString());
             _ = friend ?? throw new UserNotFoundException(friendId.ToString());
 
@@ -46,14 +46,14 @@ namespace Dal
                 throw new NotImplementedException();
             }
 
-            Context.Set<Friendship>().Remove(user.Friendships.First(s => s.User2.Id == friend.Id));
-            Context.Set<Friendship>().Remove(friend.Friendships.First(s => s.User2.Id == user.Id));
-            Context.SaveChanges();
+            _context.Set<Friendship>().Remove(user.Friendships.First(s => s.User2.Id == friend.Id));
+            _context.Set<Friendship>().Remove(friend.Friendships.First(s => s.User2.Id == user.Id));
+            _context.SaveChanges();
         }
 
         public async Task<IReadOnlyCollection<Guid>> GetUserFriendsAsync(Guid userId)
         {
-            return await Context.Set<Friendship>()
+            return await _context.Set<Friendship>()
                 .Where(s => s.User1.Id == userId)
                 .Select(s => s.User2.Id)
                 .ToListAsync();

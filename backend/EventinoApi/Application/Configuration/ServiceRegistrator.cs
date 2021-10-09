@@ -13,8 +13,8 @@ namespace Application.Configuration
             services.AddAzureBlobStorage(configuration.GetSection("AzureBlobStorage"));
 
             services.AddTransient<IPictureService, PictureService>();
-
             services.AddTransient<IFriendService, FriendService>();
+            services.AddTransient<IUserService, UserService>();0
 
             return services;
         }
