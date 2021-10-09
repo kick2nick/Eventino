@@ -6,10 +6,9 @@
     "jest": true
   },
   "extends": [
+    "airbnb-typescript/base",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "airbnb",
-    "airbnb-typescript"
+    "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -28,6 +27,8 @@
     "no-nested-ternary": "off",
     "newline-after-import": "off",
     "no-console": "warn",
+    "react/jsx-filename-extension": "off",
+    "import/no-extraneous-dependencies": "off",
     "linebreak-style": [
       "warn",
       "unix"
@@ -37,6 +38,9 @@
       {
         "allowSingleExtends": false
       }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "warn"
     ],
     "import/extensions": 0,
     "max-len": [
