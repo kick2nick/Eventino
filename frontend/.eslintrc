@@ -33,6 +33,7 @@
       "warn",
       "unix"
     ],
+    "experimentalDecorators": 0,
     "@typescript-eslint/no-empty-interface": [
       "warn",
       {
