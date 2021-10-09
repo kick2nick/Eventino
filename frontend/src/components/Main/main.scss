@@ -1,0 +1,35 @@
+@import "../../variables";
+
+.main {
+  display: flex;
+  flex-direction: column;
+
+  .events-by-type {
+    display: flex;
+    flex-direction: column;
+    width: 1136px;
+    margin: auto;
+
+    &__title {
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .button--more {
+      width: 139px;
+      margin: 26px 0 44px auto;
+
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 114%;
+      letter-spacing: 1.25px;
+      text-transform: uppercase;
+      color: $primary_green;
+    }
+  }
+
+  .events-group {
+    display: flex;
+    justify-content: space-between;
+  }
+}

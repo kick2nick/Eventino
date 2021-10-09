@@ -1,20 +1,121 @@
 @import "../../variables";
 
-// // bg, btn
-// $main-bg: white;
-// //text, border
-// // $text_color_black: rgba(0, 0, 0, 0.87);
-
-$text_color_black: pink;
-.Card {
+.card {
   width: 344px;
   height: 480px;
+
+  &__top-group {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: 9px;
+    padding: 12px 16px 24px;
+  }
+
+  &__bottom-group {
+    padding: 13px 16px 20px;
+    text-align: left;
+
+    .card__tag {
+      margin-right: 16px;
+    }
+
+    .card__description {
+      margin: 0 0 20px;
+    }
+    .card__friends-subscr {
+      display: block;
+      margin: 21px 0 14px;
+      text-decoration: underline;
+    }
+    .card__link {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 114%;
+      letter-spacing: 1.25px;
+      text-transform: uppercase;
+
+      &:nth-of-type(2) {
+        margin-right: 48px;
+      }
+    }
+  }
+
   &__title {
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
     letter-spacing: 0.15px;
+    text-align: left;
     color: $text_color_black;
+  }
+  .watch-count {
+    display: inline-flex;
+    justify-content: flex-end;
+    margin: 4px 3px 0;
+    font-size: 12px;
+    line-height: 133%;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.4px;
+    color: rgba(0, 0, 0, 0.38);
+    &__icon {
+      margin-right: 5px;
+    }
+  }
+
+  &__tag {
+    height: 32px;
+    width: 98px; // возможно лучше убрать фиксированный размер по ширине
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+
+    .tag__icon {
+      height: 20px;
+      margin-right: 6px;
+    }
+  }
+
+  .img-container {
+    margin: auto 0;
+  }
+  .date {
+    display: inline-flex;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    color: $text_color_black;
+    &__icon {
+      display: block;
+      margin-right: 14px;
+    }
+  }
+
+  &__img {
+    height: 178px;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .date-week {
+    display: grid;
+    grid-template-columns: repeat(7, 16px);
+    justify-content: end;
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 143%;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .button {
+    border-color: $button_border;
   }
 }
