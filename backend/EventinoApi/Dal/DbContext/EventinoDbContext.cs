@@ -29,6 +29,10 @@ namespace Dal.DbContext
             builder.Entity<Event>()
                 .HasOne(e => e.Host);
 
+            builder.Entity<User>()
+                .HasMany(u => u.Interests)
+                .WithMany(i => i.Users);
+
             base.OnModelCreating(builder);
         }
     }
