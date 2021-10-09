@@ -15,6 +15,6 @@ namespace Domain.Entities
 
         public string PhotoUrl { get; set; }
 
-        public ICollection<Guid> FriendIds { get; set; }
+        public ICollection<User> Friends { get; set; }
     }
 }

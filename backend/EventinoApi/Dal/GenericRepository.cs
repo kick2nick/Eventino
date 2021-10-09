@@ -17,7 +17,7 @@ namespace Dal
             Context = context;
         }
 
-        public Task<T> GetById(int id) => Context.Set<T>().FindAsync(id).AsTask();
+        public Task<T> GetById(Guid id) => Context.Set<T>().FindAsync(id).AsTask();
 
         public Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate)
             => Context.Set<T>().FirstOrDefaultAsync(predicate);

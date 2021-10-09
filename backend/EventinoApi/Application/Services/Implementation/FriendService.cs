@@ -3,33 +3,37 @@ using Domain.Entities;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Application.Services.Implementation
 {
     public class FriendService : IFriendService
     {
         private readonly ILogger<FriendService> _logger;
-        private readonly IAsyncRepository<User> _genericRepository;
+        private readonly IUserRepository _genericRepository;
 
-        public FriendService(ILogger<FriendService> logger, IAsyncRepository<User> genericRepository)
+        public FriendService(ILogger<FriendService> logger, IUserRepository genericRepository)
         {
             _logger = logger;
             _genericRepository = genericRepository;
         }
 
-        public bool AddFriend(Guid userId)
+        public async Task AddFriendAsync(Guid userId)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteFriend(Guid userId)
+        public async Task DeleteFriendAsync(Guid userId)
         {
             throw new NotImplementedException();
         }
 
-        public IReadOnlyCollection<Guid> GetUserFriendsIds(Guid userId)
+        public async Task<IReadOnlyCollection<User>> GetUserFriendsAsync(Guid userId)
         {
-            throw new NotImplementedException();
+            var user = await _genericRepository.GetUserWithFriendsAsync(userId);
+
+            return user.Friends.ToList().AsReadOnly();
         }
     }
 }
