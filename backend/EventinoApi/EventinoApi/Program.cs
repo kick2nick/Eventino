@@ -15,11 +15,12 @@ namespace EventinoApi
             var host = CreateHostBuilder(args).Build();
             using (IServiceScope scope = host.Services.CreateScope())
             {
-                var dbContex = scope.ServiceProvider.GetRequiredService<EventinoDbContext>();
+                using var dbContex = scope.ServiceProvider.GetRequiredService<EventinoDbContext>();
                 dbContex.Database.EnsureDeleted();
                 dbContex.Database.EnsureCreated();
 
                 await Seed.SeedUsers(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
+                await Seed.SeedInterests(dbContex);
             }
             host.Run();
         }
