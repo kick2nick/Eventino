@@ -28,7 +28,7 @@ namespace EventinoApi
             services.AddAuthentication();
             ConfigureCors(services);
 
-            ConfigureInMemoryDbContext(services);
+            ConfigureDbContext(services);
             ConfigureIdentity(services);
 
             services.AddControllers();
@@ -74,12 +74,12 @@ namespace EventinoApi
                 opt.UseInMemoryDatabase("EventinoDb"));
         }
 
-        // TODO: Add connection string
         private void ConfigureDbContext(IServiceCollection services)
         {
+            var constring = Environment.GetEnvironmentVariable("DB_CONNSTRING") ?? Configuration.GetConnectionString("DefaultConnection");
+
             services.AddDbContext<EventinoDbContext>(opt =>
-                opt.UseNpgsql("connection string"), 
-                    ServiceLifetime.Transient);
+                opt.UseNpgsql(constring));
         }
 
         private void ConfigureIdentity(IServiceCollection services)
