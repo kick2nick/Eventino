@@ -19,10 +19,5 @@ namespace Application.Services.Implementation
 
         public Task<User> GetUserByIdAsync(Guid id)
             => _userRepository.GetById(id);
-
-        public async Task<User> GetUserWithPopulatedInfoAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

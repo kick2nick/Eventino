@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
 using EventinoApi.Models.Out;
+using System.Linq;
 
 namespace EventinoApi.Configuration
 {
@@ -19,7 +20,16 @@ namespace EventinoApi.Configuration
 
         private void MapperOutUserConfiguration(IMapperConfigurationExpression expression)
         {
-            expression.CreateMap<User, OutUser>();
+            expression.CreateMap<User, OutUser>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.PhotoFileName, opt => opt.MapFrom(src => src.PhotoUrl))
+                .ForMember(dest => dest.Interests, opt => opt.MapFrom(
+                    src => src.Interests.Select(
+                        x => new OutInterest
+                        { 
+                            Id = x.Id, 
+                            Name = x.Name 
+                        }).ToArray()));
         }
     }
 }

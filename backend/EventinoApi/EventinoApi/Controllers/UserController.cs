@@ -26,9 +26,11 @@ namespace EventinoApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<OutUser>> GetFullUserInfo(Guid id)
+        [AllowAnonymous]
+        public async Task<ActionResult<OutUser>> GetUserById(Guid id)
         {
-            return _mapper.Map<OutUser>(await _userService.GetUserWithPopulatedInfoAsync(id));
+            var user = _mapper.Map<OutUser>(await _userService.GetUserByIdAsync(id));
+            return user;
         }
     }
 }

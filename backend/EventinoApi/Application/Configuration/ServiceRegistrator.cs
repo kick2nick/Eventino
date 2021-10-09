@@ -14,7 +14,7 @@ namespace Application.Configuration
 
             services.AddTransient<IPictureService, PictureService>();
             services.AddTransient<IFriendService, FriendService>();
-            services.AddTransient<IUserService, UserService>();0
+            services.AddTransient<IUserService, UserService>();
 
             return services;
         }
