@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using FileTransfer.Configuration;
 
 namespace EventinoApi
 {
@@ -34,6 +35,8 @@ namespace EventinoApi
             services.AddHttpContextAccessor();
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventinoApi", Version = "v1" }));
+
+            services.AddAzureBlobStorage(Configuration.GetSection("AzureBlobStorage"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
