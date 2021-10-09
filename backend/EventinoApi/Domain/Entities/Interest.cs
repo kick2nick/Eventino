@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
-    public class Interest
+    public class Interest : IEntity<int>
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public Interest() { }
 
         public override string ToString()
         {
