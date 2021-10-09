@@ -3,15 +3,17 @@ using System;
 using Dal.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Dal.Migrations
 {
     [DbContext(typeof(EventinoDbContext))]
-    partial class EventinoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211009095148_AddAttendeesToEvents")]
+    partial class AddAttendeesToEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

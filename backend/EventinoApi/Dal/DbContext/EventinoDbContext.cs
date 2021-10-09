@@ -23,6 +23,12 @@ namespace Dal.DbContext
                 .HasMany(e => e.Interests)
                 .WithMany(i => i.Events);
 
+            builder.Entity<Event>()
+                .HasMany(e => e.Attendees)
+                .WithMany(u => u.SubscribedEvents);
+            builder.Entity<Event>()
+                .HasOne(e => e.Host);
+
             base.OnModelCreating(builder);
         }
     }
