@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -13,5 +14,7 @@ namespace Domain.Entities
         public string ContactDetails { get; set; }
 
         public string PhotoUrl { get; set; }
+
+        public ICollection<Guid> FriendIds { get; set; }
     }
 }
