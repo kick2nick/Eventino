@@ -20,6 +20,5 @@ namespace Dal
 
         Task<int> CountAll();
         Task<int> CountWhere(Expression<Func<T, bool>> predicate);
-
     }
 }

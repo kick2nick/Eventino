@@ -16,6 +16,6 @@ namespace Domain.Entities
 
         public virtual ICollection<Event> SubscribedEvents { get; set; }
         public virtual ICollection<Interest> Interests { get; set; }
-        public virtual ICollection<Guid> FriendIds { get; set; }
+        public virtual ICollection<Friendship> Friendships { get; set; }
     }
 }

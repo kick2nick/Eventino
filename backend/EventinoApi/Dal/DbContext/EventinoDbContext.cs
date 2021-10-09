@@ -32,6 +32,10 @@ namespace Dal.DbContext
                 .HasMany(u => u.Interests)
                 .WithMany(i => i.Users);
 
+            builder.Entity<User>()
+                .HasMany(s => s.Friendships)
+                .WithOne(s => s.User1);
+
             base.OnModelCreating(builder);
         }
     }
