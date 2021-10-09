@@ -14,7 +14,7 @@ namespace FileTransfer.Clients.Implementation
     {
         private const int TransferOptionsMaxConcurrency = 8;
         private const int TransferOptionsMaxSize = 50 * 1024 * 1024;
-        private const string JpgImageContentType = "image/jpg";
+        private const string JpgImageContentTypePrefix = "image/";
         private const string BlobContainerNameDevelopment = "pictures-dev";
         private const string BlobContainerNameProduction = "pictures-prod";
 
@@ -23,21 +23,6 @@ namespace FileTransfer.Clients.Implementation
         private readonly string _blobContainerName;
 
         private BlobContainerClient PicturesContainerClient { get => _blobServiceClient.GetBlobContainerClient(_blobContainerName); }
-        private static BlobUploadOptions UploadOptions
-        {
-            get => new()
-            {
-                TransferOptions = new StorageTransferOptions
-                {
-                    MaximumConcurrency = TransferOptionsMaxConcurrency,
-                    MaximumTransferSize = TransferOptionsMaxSize,
-                },
-                HttpHeaders = new BlobHttpHeaders
-                {
-                    ContentType = JpgImageContentType,
-                }
-            };
-        }
 
         public PictureTransferClient(ILogger<PictureTransferClient> logger,
             BlobServiceClient blobServiceClient)
@@ -80,7 +65,7 @@ namespace FileTransfer.Clients.Implementation
 
             data.Position = 0;
 
-            var response = await blobClient.UploadAsync(data, UploadOptions);
+            var response = await blobClient.UploadAsync(data, GetUploadOptions(Path.GetExtension(fileName)));
 
             if (response.GetRawResponse().Status != StatusCodes.Status201Created)
             {
@@ -102,7 +87,7 @@ namespace FileTransfer.Clients.Implementation
 
             data.Position = 0;
 
-            var response = await blobClient.UploadAsync(data, UploadOptions);
+            var response = await blobClient.UploadAsync(data, GetUploadOptions(Path.GetExtension(fileName)));
 
             if (response.GetRawResponse().Status != StatusCodes.Status201Created)
             {
@@ -124,5 +109,19 @@ namespace FileTransfer.Clients.Implementation
                 throw new FileTransferResponseException(errorMessage);
             }
         }
+
+        private static BlobUploadOptions GetUploadOptions(string imageExtension)
+            => new()
+            {
+                TransferOptions = new StorageTransferOptions
+                {
+                    MaximumConcurrency = TransferOptionsMaxConcurrency,
+                    MaximumTransferSize = TransferOptionsMaxSize,
+                },
+                HttpHeaders = new BlobHttpHeaders
+                {
+                    ContentType = JpgImageContentTypePrefix + imageExtension,
+                }
+            };
     }
 }
