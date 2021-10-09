@@ -30,6 +30,7 @@ namespace EventinoApi
             ConfigureCors(services);
 
             ConfigureDbContext(services);
+
             ConfigureIdentity(services);
 
             services.AddAuthentication()
