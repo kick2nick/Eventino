@@ -1,5 +1,5 @@
 using Dal.DbContext;
-using Domain.Configuration;
+using Application.Configuration;
 using Domain.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Domain.Services.Implementation
+namespace Application.Services.Implementation
 {
     public class PictureService : IPictureService
     {

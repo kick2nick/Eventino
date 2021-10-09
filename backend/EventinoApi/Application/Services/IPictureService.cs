@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace Domain.Services
+namespace Application.Services
 {
     public interface IPictureService
     {

@@ -1,10 +1,10 @@
-﻿using Domain.Services;
-using Domain.Services.Implementation;
+﻿using Application.Services;
+using Application.Services.Implementation;
 using FileTransfer.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Domain.Configuration
+namespace Application.Configuration
 {
     public static class ServiceRegistrator
     {
