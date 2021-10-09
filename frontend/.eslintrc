@@ -6,10 +6,9 @@
     "jest": true
   },
   "extends": [
+    "airbnb-typescript/base",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    // "airbnb",   // слишком жестко =\
-    "airbnb-typescript"
+    "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -39,6 +38,9 @@
       {
         "allowSingleExtends": false
       }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "warn"
     ],
     "import/extensions": 0,
     "max-len": [

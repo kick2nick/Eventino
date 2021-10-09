@@ -1,0 +1,20 @@
+@import "../../variables";
+
+// // bg, btn
+// $main-bg: white;
+// //text, border
+// // $text_color_black: rgba(0, 0, 0, 0.87);
+
+$text_color_black: pink;
+.Card {
+  width: 344px;
+  height: 480px;
+  &__title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    color: $text_color_black;
+  }
+}

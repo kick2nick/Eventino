@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import FilterBar from '../FiltersBar/FilterBar';
-import { IEventCard } from '../EventsCard/EventsCard';
+import { IEventCard, EventCard } from '../EventCard/EventCard';
 
 const Main: FC = () => {
   const title = 'Popular';
-  const eventsPopular: Array<IEventCard> = [{ title: 'testTitle' }, { title: 'testTitle' }, { title: 'testTitle' }];
+  const eventsPopular: Array<IEventCard> = [{ title: 'Title' }, { title: 'Title' }, { title: 'Title' }];
 
   return (
     <main className='main'>
@@ -13,13 +13,13 @@ const Main: FC = () => {
 
       <div className='event__group'>
         <h2>{title}</h2>
-        {eventsPopular.map(eventCard => { return (<div>{eventCard.title}</div>); })}
+        {eventsPopular.map(eventCard => { return (<EventCard title={eventCard.title} />); })}
         <button>more events</button>
       </div>
 
       <div className='event__group'>
         <h2>{title}</h2>
-        {eventsPopular.map(eventCard => { return (<div>{eventCard.title}</div>); })}
+        {eventsPopular.map(eventCard => { return (<EventCard title={eventCard.title} />); })}
         <button>more events</button>
       </div>
 
