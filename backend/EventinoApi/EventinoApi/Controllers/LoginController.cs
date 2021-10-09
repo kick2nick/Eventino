@@ -1,10 +1,15 @@
 ﻿using Application.Services;
 using Domain.Entities;
+using EventinoApi.Models.Out;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EventinoApi.Controllers
@@ -15,10 +20,12 @@ namespace EventinoApi.Controllers
     public class LoginController : ControllerBase
     {
         private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
-        public LoginController(SignInManager<User> signInManager)
+        public LoginController(SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpGet("TestLogin")]
@@ -28,6 +35,57 @@ namespace EventinoApi.Controllers
             if (user is null) return NotFound();
             await _signInManager.SignInAsync(user, false);
             return Ok();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("googleLogin")]
+        public IActionResult GoogleLogin()
+        {
+            string redirectUrl = Url.Action("GoogleResponse", "Account");
+            var authenticationScheme = GoogleDefaults.AuthenticationScheme;
+
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(authenticationScheme, redirectUrl);
+
+            return new ChallengeResult(authenticationScheme, properties);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("~/Account/GoogleResponse")]
+        public async Task<IActionResult> GoogleResponse()
+        {
+            ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+                return RedirectToAction(nameof(Login));
+
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
+            string[] userInfo = { info.Principal.FindFirst(ClaimTypes.Name).Value, info.Principal.FindFirst(ClaimTypes.Email).Value };
+            if (result.Succeeded)
+            {
+                return Ok(userInfo);
+            }
+            else
+            {
+                User user = new()
+                {
+                    Id = Guid.NewGuid(),
+                    Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
+                    UserName = info.Principal.FindFirst(ClaimTypes.Name).Value,
+                };
+
+                IdentityResult identResult = await _userManager.CreateAsync(user);
+                if (identResult.Succeeded)
+                {
+                    identResult = await _userManager.AddLoginAsync(user, info);
+                    if (identResult.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, false);
+                        return Ok(userInfo);
+                    }
+                }
+                return BadRequest();
+            }
         }
 
         [HttpPost("SignIn")]
@@ -46,7 +104,7 @@ namespace EventinoApi.Controllers
             var confirmationLink = Url.Action("ConfirmEmail", "Login", new { userId = user.Id, token = token }, Request.Scheme);
 
             await EmailService.SendConfirmationEmailAsync(user.Email, confirmationLink);
-            return Ok("Email with authorization link was sended.");
+            return Ok("Email with authorization link was sent.");
         }
 
         [HttpGet("ConfirmEmail")]
