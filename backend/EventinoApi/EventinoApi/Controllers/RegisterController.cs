@@ -17,10 +17,12 @@ namespace EventinoApi.Controllers
     public class RegisterController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public RegisterController(UserManager<User> userManager)
+        public RegisterController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost]
@@ -34,9 +36,7 @@ namespace EventinoApi.Controllers
                 UserName = registerInfo.UserName
             };
 
-            var result = await _userManager.CreateAsync(user, registerInfo.Password);
-
-
+            var result = await _userManager.CreateAsync(user);
 
             if (!result.Succeeded) return BadRequest(result.Errors.Select(s => s.Description));
 
@@ -48,6 +48,7 @@ namespace EventinoApi.Controllers
         }
 
         [HttpGet("ConfirmEmail")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(IEnumerable<string>))]
         public async Task<ActionResult> ConfirmEmail(string userId, string token)
         {
@@ -62,6 +63,8 @@ namespace EventinoApi.Controllers
 
             var confirmResult = await _userManager.ConfirmEmailAsync(user, token);
 
+            if (confirmResult.Succeeded)
+                await _signInManager.SignInAsync(user, false);
             return confirmResult.Succeeded is true ? Ok("Email confirmed.") : BadRequest(confirmResult.Errors.Select(s => s.Description));
         }
     }

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Services;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -20,6 +21,15 @@ namespace EventinoApi.Controllers
             _signInManager = signInManager;
         }
 
+        [HttpGet("TestLogin")]
+        public async Task<ActionResult> TestLogin(string email, string password)
+        {
+            var user = await _signInManager.UserManager.FindByEmailAsync(email);
+            if (user is null) return NotFound();
+            await _signInManager.SignInAsync(user, false);
+            return Ok();
+        }
+
         [HttpPost("SignIn")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -32,8 +42,29 @@ namespace EventinoApi.Controllers
             {
                 return Unauthorized();
             }
-            var signInResult = await _signInManager.PasswordSignInAsync(user, loginInfo.Password, false, false);
-            return signInResult.Succeeded ? Ok() : Unauthorized();
+            var token =  await _signInManager.UserManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action("ConfirmEmail", "Login", new { userId = user.Id, token = token }, Request.Scheme);
+
+            await EmailService.SendConfirmationEmailAsync(user.Email, confirmationLink);
+            return Ok("Email with authorization link was sended.");
+        }
+
+        [HttpGet("ConfirmEmail")]
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                return RedirectToAction("index");
+            }
+
+            var user = await _signInManager.UserManager.FindByIdAsync(userId);
+
+            if (user is null) return NotFound();
+
+            await _signInManager.SignInAsync(user, false);
+
+            return Ok("Success login.");
         }
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
