@@ -23,6 +23,8 @@ const EventCard: FC<IEventCard> = ({
   friendsSubscr = ['Petya', 'Vasya'],
 }) => {
 
+  console.log();
+  
   return (
     <div className='card Card' >
 
