@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Remove="Extensions\NewFile.txt" />
+    <None Remove="Models\NewFile.txt" />
     <None Remove="NewFile.txt" />
   </ItemGroup>
 
@@ -24,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Dal\Dal.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
