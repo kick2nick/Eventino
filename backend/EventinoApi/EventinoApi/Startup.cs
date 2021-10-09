@@ -76,9 +76,10 @@ namespace EventinoApi
 
         private void ConfigureDbContext(IServiceCollection services)
         {
+            var constring = Environment.GetEnvironmentVariable("DB_CONNSTRING") ?? Configuration.GetConnectionString("DefaultConnection");
+
             services.AddDbContext<EventinoDbContext>(opt =>
-                opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")), 
-                    ServiceLifetime.Transient);
+                opt.UseNpgsql(constring));
         }
 
         private void ConfigureIdentity(IServiceCollection services)
