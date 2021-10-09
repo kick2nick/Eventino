@@ -98,6 +98,11 @@ namespace EventinoApi
             };
             #endregion
 
+            #region friendship
+            var friends1 = new Friendship() { User1 = IvanIvanov, User2 = OlegTarusov };
+            var friends2 = new Friendship() { User1 = NikolayKuksov, User2 = VladislavCheliadin };
+            #endregion
+
             #region add events and interests to users
             IvanIvanov.SubscribedEvents.Add(outdoorEvent);
             IvanIvanov.SubscribedEvents.Add(onlineGameEvent);
@@ -150,6 +155,7 @@ namespace EventinoApi
             #region add data to db
             await dbContext.AddRangeAsync(sports, outdoor, games, party, movie, music, online, restarant, traning, classes);
             await dbContext.AddRangeAsync(sportEvent, outdoorEvent, onlineGameEvent, partyEvent);
+            await dbContext.AddRangeAsync(friends1, friends2);
             await dbContext.SaveChangesAsync();
             #endregion
         }
