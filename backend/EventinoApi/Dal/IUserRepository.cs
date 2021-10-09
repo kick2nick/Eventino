@@ -7,7 +7,7 @@ namespace Dal
     public interface IUserRepository
     {
         Task<User> GetUserWithFriendsAsync(Guid userId);
-        Task AddFriendAsync(Guid userId);
-        Task DeleteFriendAsync(Guid userId);
+        Task AddFriendAsync(Guid userId, Guid friendId);
+        Task DeleteFriendAsync(Guid userId, Guid friendId);
     }
 }

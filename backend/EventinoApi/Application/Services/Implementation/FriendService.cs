@@ -19,15 +19,11 @@ namespace Application.Services.Implementation
             _genericRepository = genericRepository;
         }
 
-        public async Task AddFriendAsync(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task AddFriendAsync(Guid userId, Guid friendId) =>
+            await _genericRepository.AddFriendAsync(userId, friendId);
 
-        public async Task DeleteFriendAsync(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task DeleteFriendAsync(Guid userId, Guid friendId) =>
+            await _genericRepository.DeleteFriendAsync(userId, friendId);
 
         public async Task<IReadOnlyCollection<User>> GetUserFriendsAsync(Guid userId)
         {

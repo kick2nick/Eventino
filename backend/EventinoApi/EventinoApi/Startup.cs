@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using Dal.Configuration;
 
 namespace EventinoApi
 {
@@ -28,7 +29,7 @@ namespace EventinoApi
             services.AddAuthentication();
             ConfigureCors(services);
 
-            ConfigureInMemoryDbContext(services);
+            ConfigureDbContext(services);
             ConfigureIdentity(services);
 
             services.AddControllers();
@@ -40,6 +41,8 @@ namespace EventinoApi
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventinoApi", Version = "v1" }));
 
             services.AddBllServices(Configuration);
+
+            services.AddDal();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -74,12 +77,12 @@ namespace EventinoApi
                 opt.UseInMemoryDatabase("EventinoDb"));
         }
 
-        // TODO: Add connection string
         private void ConfigureDbContext(IServiceCollection services)
         {
+            var constring = Environment.GetEnvironmentVariable("DB_CONNSTRING") ?? Configuration.GetConnectionString("DefaultConnection");
+
             services.AddDbContext<EventinoDbContext>(opt =>
-                opt.UseNpgsql("connection string"), 
-                    ServiceLifetime.Transient);
+                opt.UseNpgsql(constring));
         }
 
         private void ConfigureIdentity(IServiceCollection services)

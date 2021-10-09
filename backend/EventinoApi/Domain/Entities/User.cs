@@ -12,9 +12,10 @@ namespace Domain.Entities
         }
 
         public string ContactDetails { get; set; }
-
         public string PhotoUrl { get; set; }
 
-        public ICollection<User> Friends { get; set; }
+        public virtual ICollection<Event> SubscribedEvents { get; set; }
+        public virtual ICollection<Interest> Interests { get; set; }
+        public virtual ICollection<User> Friends { get; set; }
     }
 }
