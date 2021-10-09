@@ -29,6 +29,7 @@ namespace EventinoApi.Controllers
         }
 
         [HttpGet("TestLogin")]
+        [AllowAnonymous]
         public async Task<ActionResult> TestLogin(string email, string password)
         {
             var user = await _signInManager.UserManager.FindByEmailAsync(email);
