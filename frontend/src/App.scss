@@ -1,5 +1,17 @@
+@import "./variables";
+
 .App {
   text-align: center;
+
+  a {
+    color: $primary_link;
+  }
+
+  h2 {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 34px;
+    line-height: 106%;
+    color: $text_color_main;
+  }
 }
-
-
