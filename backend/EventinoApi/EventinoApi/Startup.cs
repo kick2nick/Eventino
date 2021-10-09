@@ -1,15 +1,16 @@
+using Dal.DbContext;
+using Application.Configuration;
+using Domain.Entities;
+using EventinoApi.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EventinoApi
 {
@@ -22,26 +23,25 @@ namespace EventinoApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication();
+            ConfigureCors(services);
 
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(policy =>
-                {
-                    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().Build();
-                });
-            });
+            ConfigureDbContext(services);
+            ConfigureIdentity(services);
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventinoApi", Version = "v1" });
-            });
+
+            services.AddHttpContextAccessor();
+
+            services.AddApplicationInsightsTelemetry();
+
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventinoApi", Version = "v1" }));
+
+            services.AddBllServices(Configuration);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -51,6 +51,10 @@ namespace EventinoApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventinoApi v1"));
                 app.UseCors();
             }
+            else
+            {
+                app.UseHttpStatusCodeExceptionMiddleware();
+            }
 
 
             app.UseStaticFiles();
@@ -58,11 +62,42 @@ namespace EventinoApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+        }
+
+        private void ConfigureInMemoryDbContext(IServiceCollection services)
+        {
+            services.AddDbContext<EventinoDbContext>(opt => 
+                opt.UseInMemoryDatabase("EventinoDb"));
+        }
+
+        private void ConfigureDbContext(IServiceCollection services)
+        {
+            var constring = Environment.GetEnvironmentVariable("DB_CONNSTRING") ?? Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<EventinoDbContext>(opt =>
+                opt.UseNpgsql(constring));
+        }
+
+        private void ConfigureIdentity(IServiceCollection services)
+        {
+            services.AddIdentity<User, IdentityRole<Guid>>(
+                options => options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ")
+                .AddEntityFrameworkStores<EventinoDbContext>()
+                .AddDefaultTokenProviders();
+        }
+
+        private void ConfigureCors(IServiceCollection services)
+        {
+            services.AddCors(options =>
             {
-                endpoints.MapControllers();
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().Build();
+                });
             });
         }
     }
