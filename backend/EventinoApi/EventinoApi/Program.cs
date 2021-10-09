@@ -19,8 +19,7 @@ namespace EventinoApi
                 dbContex.Database.EnsureDeleted();
                 dbContex.Database.EnsureCreated();
 
-                await Seed.SeedUsers(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
-                await Seed.SeedInterests(dbContex);
+                await Seed.SeedData(scope.ServiceProvider.GetRequiredService<UserManager<User>>(), dbContex);
             }
             host.Run();
         }
