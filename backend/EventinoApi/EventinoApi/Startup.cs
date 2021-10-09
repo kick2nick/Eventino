@@ -1,4 +1,5 @@
 using Dal.DbContext;
+using Application.Configuration;
 using Domain.Entities;
 using EventinoApi.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,8 @@ namespace EventinoApi
             services.AddApplicationInsightsTelemetry();
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventinoApi", Version = "v1" }));
+
+            services.AddBllServices(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

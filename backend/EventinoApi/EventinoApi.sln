@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dal", "Dal\Dal.csproj", "{D1DFA0E6-CFEB-4C74-9E07-F01EA1E1FB76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileTransfer", "FileTransfer\FileTransfer.csproj", "{7DF7ABE0-9D4F-41C1-9919-386F80FBE55C}"
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{32CA1916-7473-4333-B969-61E53D63EC04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C134E80E-AC3B-4490-A0A8-511E084B60DB}"
@@ -31,6 +32,10 @@ Global
 		{D1DFA0E6-CFEB-4C74-9E07-F01EA1E1FB76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1DFA0E6-CFEB-4C74-9E07-F01EA1E1FB76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1DFA0E6-CFEB-4C74-9E07-F01EA1E1FB76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF7ABE0-9D4F-41C1-9919-386F80FBE55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF7ABE0-9D4F-41C1-9919-386F80FBE55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF7ABE0-9D4F-41C1-9919-386F80FBE55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF7ABE0-9D4F-41C1-9919-386F80FBE55C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32CA1916-7473-4333-B969-61E53D63EC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32CA1916-7473-4333-B969-61E53D63EC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32CA1916-7473-4333-B969-61E53D63EC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
