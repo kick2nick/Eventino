@@ -1,7 +1,5 @@
 using Dal.DbContext;
-using Domain.Entities;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
@@ -15,11 +13,11 @@ namespace EventinoApi
             var host = CreateHostBuilder(args).Build();
             using (IServiceScope scope = host.Services.CreateScope())
             {
-                var dbContex = scope.ServiceProvider.GetRequiredService<EventinoDbContext>();
+                using var dbContex = scope.ServiceProvider.GetRequiredService<EventinoDbContext>();
                 dbContex.Database.EnsureDeleted();
                 dbContex.Database.EnsureCreated();
 
-                await Seed.SeedUsers(scope.ServiceProvider.GetRequiredService<UserManager<User>>());
+                await Seed.SeedData(dbContex);
             }
             host.Run();
         }
