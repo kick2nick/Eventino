@@ -54,6 +54,8 @@ namespace EventinoApi
             services.AddBllServices(Configuration);
 
             services.AddDal();
+
+            services.AddMapper();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
