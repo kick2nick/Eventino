@@ -45,7 +45,7 @@ namespace Domain.Services.Implementation
             _ = fileName ?? throw new ArgumentNullException(nameof(fileName));
             _ = data ?? throw new ArgumentNullException(nameof(data));
 
-            var blobName = $"{Guid.NewGuid()}.{Path.GetExtension(fileName).ToLower()}";
+            var blobName = $"{Guid.NewGuid()}{Path.GetExtension(fileName).ToLower()}";
 
             await _pictureTransferClient.UploadFileAsync(blobName, data);
 

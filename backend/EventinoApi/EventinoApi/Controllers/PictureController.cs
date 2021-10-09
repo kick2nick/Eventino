@@ -29,9 +29,9 @@ namespace EventinoApi.Controllers
             using var dataStream = new MemoryStream();
             await files[0].CopyToAsync(dataStream);
 
-            await _pictureService.UploadFileAsync(files[0].Name, dataStream);
+            var fileName = await _pictureService.UploadFileAsync(files[0].FileName, dataStream);
 
-            return Ok();
+            return Ok(fileName);
         }
 
         [HttpGet("{filePath}")]
