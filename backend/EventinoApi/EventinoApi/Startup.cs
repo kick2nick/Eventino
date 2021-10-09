@@ -1,5 +1,6 @@
 using Dal.DbContext;
 using Domain.Entities;
+using EventinoApi.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -33,6 +34,8 @@ namespace EventinoApi
 
             services.AddHttpContextAccessor();
 
+            services.AddApplicationInsightsTelemetry();
+
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventinoApi", Version = "v1" }));
         }
 
@@ -44,6 +47,10 @@ namespace EventinoApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventinoApi v1"));
                 app.UseCors();
+            }
+            else
+            {
+                app.UseHttpStatusCodeExceptionMiddleware();
             }
 
 
