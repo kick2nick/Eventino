@@ -1,4 +1,4 @@
-using Application.Configuration;
+﻿using Application.Configuration;
 using Dal.Configuration;
 using Dal.DbContext;
 using Domain.Entities;
@@ -107,7 +107,7 @@ namespace EventinoApi
         private void ConfigureIdentity(IServiceCollection services)
         {
             services.AddIdentity<User, IdentityRole<Guid>>(
-                options => options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ")
+                options => options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя")
                 .AddEntityFrameworkStores<EventinoDbContext>()
                 .AddDefaultTokenProviders();
         }
