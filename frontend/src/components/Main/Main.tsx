@@ -41,10 +41,10 @@ const Main: FC = observer(() => {
       <div className='events-by-type'>
         <h2 className='events-by-type__title'>{title}</h2>
 
-
         <div className='events-group'>
           {allEvents.map(eventCard => {
             return (<EventCard
+              // onClick={}
               title={eventCard.title}
               key={eventCard.id}
               id={eventCard.id} />);

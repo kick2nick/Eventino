@@ -24,7 +24,7 @@ const App: FC = () => {
           <Route path="/myProfile" exact>
             {myProfilePage}
           </Route>
-          <Redirect to="/" />
+          {/* <Redirect to="/" /> */}
         </Switch>
 
         <footer />

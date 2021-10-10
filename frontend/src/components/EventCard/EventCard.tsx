@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react';
 import './eventCard.scss';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 export interface IEventCard {
   id: string,
   hostId?: string,
@@ -18,6 +18,7 @@ export interface IEventCard {
   friendsSubscr?: Array<string>,
   interests?: Array<string>,
   viewsCount?: number
+  // onClick: () => void;
 }
 
 const EventCard: FC<IEventCard> = ({
@@ -30,12 +31,19 @@ const EventCard: FC<IEventCard> = ({
   interests,
   description,
   friendsSubscr,
+  // onClick,
 }) => {
 
+  const history = useHistory();
+
+  const currentCardId = id;
+  function handleClick() {
+    history.push(`/event/${currentCardId}`);
+  }
 
   const weeks = ['T', 'W', 'T', 'F', 'S', 'S'];
   return (
-    <div className='card Card' >
+    <div className='card Card' onClick={() => handleClick()} >
 
       <div className='card__top-group'>
         <h3 className='card__title'>{title}</h3>
