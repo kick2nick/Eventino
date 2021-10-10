@@ -7,7 +7,6 @@ import './myProfile.scss';
 
 
 const MyProfile: FC = observer(() => {
-  // console.log(currentUser.id);
   return (
     <section className='my-profile'>
       <Tabs />
@@ -44,7 +43,15 @@ const MyProfile: FC = observer(() => {
             </div>
             <div className="user-week">
               <div className="user-week__title">This week busy days:</div>
-              <div className="week-days">MTWTFSS</div>
+              <div className="week-days box">
+                <div className=''>S</div>
+                <div className="">M</div>
+                <div className="">T</div>
+                <div className="">W</div>
+                <div className="">T</div>
+                <div className="">F</div>
+                <div className="">S</div>
+              </div>
               <div className="week-date">
                 <div className='is-active'>11</div>
                 <div className="">12</div>
