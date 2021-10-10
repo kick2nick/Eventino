@@ -96,7 +96,7 @@ export const SignUp: FC = () => {
             <div className="control has-icons-left mt-2">
               <button className="button is-fullwidth" onClick={handleClickGoogle}>SING UP WITH GOOGLE</button>
               <span className="icon is-small is-left">
-                <i className="fas fa-Google"></i>
+                <i className="fas fa-google"></i>
               </span>
             </div>
             <button className="sing-up-link mt-3" onClick={() => currentUser.openLogIn()}>Have an account? Log in</button>
