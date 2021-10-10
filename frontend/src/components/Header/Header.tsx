@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Auth } from '../Modals/Auth/Auth';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import './Header.scss';
@@ -21,8 +20,13 @@ const Header: FC = observer(() => {
           </Link>
         </div>
         <div>
-          <div >
-            <Auth />
+          <div className='header__photo'>
+            {currentUser.isAuth && <Link to="/myProfile" className="image is-32x32 mr-2">
+              <img className='is-rounded' src={`/${currentUser.photoFileName}`} alt='user icon' />
+            </Link>}
+            {currentUser.isAuth ?
+              <button className="button is-outlined header__button" onClick={() => currentUser.singOutFromAccount()}>Sing Out</button> :
+              <button className="button is-outlined header__button" onClick={() => currentUser.openLogIn()}>Log In</button>}
           </div>
 
         </div>

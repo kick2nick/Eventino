@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EventinoApi.Models.Input
 {
-    public class InputUserDto
+    public record InputUserDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; } = null;
+        public Guid Id { get; init; }
+        public string Name { get; init; }
         [EmailAddress]
-        public string Email { get; set; } = null;
-        public string PhotoFileName { get; set; } = null;
-        public int[] InterestIds { get; set; } = null;
-
+        public string Email { get; init; }
+        public string PhotoFileName { get; init; }
+        public IReadOnlyCollection<string> Interests { get; init; }
     }
 }

@@ -1,10 +1,7 @@
 ﻿using Dal;
 using Dal.Repositories;
 using Domain.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,39 +9,24 @@ namespace Application.Services.Implementation
 {
     public class UserService : IUserService
     {
-        private readonly ILogger _logger;
         private readonly IUserRepository _userRepository;
-        private readonly IInterestRepository _interestRepository;
-        private readonly UserManager<User> _userManager;
 
-        public UserService(ILogger<UserService> logger, IUserRepository userRepository, IInterestRepository interestRepository, UserManager<User> userManager)
+        public UserService(IUserRepository userRepository)
         {
-            _logger = logger;
             _userRepository = userRepository;
-            _interestRepository = interestRepository;
-            _userManager = userManager;
         }
 
         public Task<User> GetUserByIdAsync(Guid id)
             => _userRepository.GetById(id);
 
-        public async Task<User> UpdateUserAsync(User updatedUser)
+        public async Task<User> UpdateUserAsync(User userToUpdate)
         {
-            await PopulateUserInterestsAsyncAsync(updatedUser);
+            var updatedUser = await UpdateFullUserInfoAsync(userToUpdate);
 
-            updatedUser = await UpdateFullUserInfoAsync(updatedUser);
-
-            await _userManager.UpdateAsync(updatedUser);
+            await _userRepository.Update(updatedUser);
+            await _userRepository.SetUserInterests(userToUpdate.Interests.Select(s => s.Name).ToList(), userToUpdate.Id);
 
             return updatedUser;
-        }
-
-        private async Task PopulateUserInterestsAsyncAsync(User user)
-        {
-            var userInterestIds = user.Interests.Select(i => i.Id).ToArray();
-            var interests = await _interestRepository.GetWhere(x => userInterestIds.Contains(x.Id));
-
-            user.Interests = (ICollection<Interest>)interests;
         }
 
         private async Task<User> UpdateFullUserInfoAsync(User updatedUser)
@@ -56,7 +38,6 @@ namespace Application.Services.Implementation
             user.NormalizedUserName = updatedUser.UserName?.ToUpper() ?? user.NormalizedUserName;
             user.Email = updatedUser.Email ?? user.Email;
             user.NormalizedEmail = updatedUser.Email?.ToUpper() ?? user.NormalizedEmail;
-            user.Interests = updatedUser.Interests ?? user.Interests;
 
             return user;
         }

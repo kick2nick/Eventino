@@ -1,8 +1,11 @@
 import { makeAutoObservable } from 'mobx';
+import { AuthApi } from '../services/apiService';
+
+const authApi = new AuthApi();
 
 class CurrentUser {
 
-  isAuth = true;
+  isAuth = false;
 
   id = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
@@ -52,11 +55,19 @@ class CurrentUser {
 
   openLogIn() {
     this.modal = 'login';
-    console.log(this.modal);
   }
 
   openSignUp() {
     this.modal = 'signup';
+  }
+
+  closeModalAndAuth() {
+    this.modal = 'close';
+    this.isAuth = true;
+  }
+
+  async singOutFromAccount() {
+    await authApi.postSignOut().then(() => this.isAuth = false);
   }
 
   updateCurrentUser() {

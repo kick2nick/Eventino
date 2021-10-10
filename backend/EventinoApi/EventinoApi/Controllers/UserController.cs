@@ -43,9 +43,15 @@ namespace EventinoApi.Controllers
             return Ok(_mapper.Map<OutUser>(await _userService.GetUserByIdAsync(id)));
         }
 
-        [HttpPatch]
-        public async Task<ActionResult> UpdateUserData([FromQuery] InputUserDto inputUser)
+        [HttpPut]
+        public async Task<ActionResult<OutUser>> UpdateUserData([FromBody] InputUserDto inputUser)
         {
+            var userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            if(userId != inputUser.Id)
+            {
+                return BadRequest();
+            }
+
             var user = _mapper.Map<User>(inputUser);
             var updatedUser = _mapper.Map<OutUser>(await _userService.UpdateUserAsync(user));
             return Ok(updatedUser);

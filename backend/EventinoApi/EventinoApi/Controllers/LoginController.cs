@@ -122,7 +122,7 @@ namespace EventinoApi.Controllers
 
             await _signInManager.SignInAsync(user, false);
 
-            return Ok("Success login.");
+            return Redirect("~/Home");
         }
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]

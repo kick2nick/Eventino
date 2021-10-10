@@ -14,11 +14,11 @@ export const LogIn: FC = () => {
 
   const handleChangeEmail = (value: string) => setEmail(value);
   const handleClickSubmit = () => authApi.postSignIn(email).then(data => {
-    if (typeof data === 'string') currentUser.closeModal();
+    if (typeof data === 'string') currentUser.closeModalAndAuth();
     else setErrRequest('Please sing up!');
   }).catch(() => setErrRequest('Please sign up!'));
   const handleClickGoogle = () => authApi.getGoogleLogIn().then(data => {
-    if (typeof data === 'string') currentUser.closeModal();
+    if (typeof data === 'string') currentUser.closeModalAndAuth();
     else setErrRequest('Somthing heppend!');
   }).catch(() => setErrRequest('Somthing heppend!'));
 
