@@ -37,69 +37,112 @@ namespace EventinoApi
             #endregion
 
             #region create Events
-            var sportEvent = new Event()
+            var laTomatina = new Event()
             {
                 HostId = IvanIvanov.Id,
                 Host = IvanIvanov,
-                Title = "Test title event",
-                Description = "Test Description event",
-                Type = EventType.Online,
+                Title = "La tomatina",
+                Description = "Приглашаем на ежегодный праздник, проходящий в последнюю среду августа в испанском городе Буньоль, автономное сообщество Валенсия. Десятки тысяч участников приезжают из разных стран для участия в битве, «оружием» в которой служат помидоры.",
+                Type = EventType.Offline,
                 Status = EventStatus.Created,
-                MaxMembers = 10,
-                MinUserAge = 20,
+                MaxMembers = 1000,
+                MinUserAge = 10,
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
-                StartDate = DateTime.Now,
+                StartDate = new DateTime(2022, 6, 13, 14, 30, 30),
                 Interests = new List<Interest>(),
-                Attendees = new List<User>()
+                Attendees = new List<User>(),
+                PhotoUrl = "cc2da6cc-086c-417b-8f1a-9e1ce14671ff.jpg",
+                Place = "Spain"
             };
-            var outdoorEvent = new Event()
+            var bycicleEvent = new Event()
             {
                 HostId = OlegTarusov.Id,
                 Host = OlegTarusov,
-                Title = "Test title event",
-                Description = "Test Description event",
+                Title = "Cycling Thursday",
+                Description = "Bristol Thursday Old Time Cyclists meets every Thursday, and on occasional Tuesdays, for a ride from Bristol to lunch and back.",
                 Type = EventType.Offline,
-                Status = EventStatus.InProgress,
-                MaxMembers = 5,
+                Status = EventStatus.Created,
+                MaxMembers = 10,
                 MinUserAge = 30,
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
-                StartDate = DateTime.Now,
+                StartDate = DateTime.Now.AddDays(2).AddHours(14),
                 Interests = new List<Interest>(),
-                Attendees = new List<User>()
+                Attendees = new List<User>(),
+                Place = "Bristol",
+                PhotoUrl = "53046036-8755-46f9-beb1-291be1fe75f6.jpg"
             };
-            var onlineGameEvent = new Event()
+            var footballEvent = new Event()
             {
                 HostId = NikolayKuksov.Id,
                 Host = NikolayKuksov,
-                Title = "Test title event",
-                Description = "Test Description event",
-                Type = EventType.Online,
-                Status = EventStatus.Completed,
+                Title = "Football game",
+                Description = "A friendly Football match is to be held between junior team of our school and that of May flower school. ",
+                Type = EventType.Offline,
+                Status = EventStatus.Created,
                 MaxMembers = 100,
-                MinUserAge = 25,
+                MinUserAge = 15,
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
-                StartDate = DateTime.Now,
+                StartDate = DateTime.Now.AddDays(7).AddHours(1),
                 Interests = new List<Interest>(),
-                Attendees = new List<User>()
+                Attendees = new List<User>(),
+                PhotoUrl = "1b6b3189-5abe-41b9-a9aa-1515d618762b.jpg"
             };
             var partyEvent = new Event()
             {
                 HostId = VladislavCheliadin.Id,
                 Host = VladislavCheliadin,
-                Title = "Test title event",
-                Description = "Test Description event",
+                Title = "Birthday party",
+                Description = "I hope you all are doing fine. I have something very special to tell you which is that my birthday is on its way and I want you all to come over to my place.",
                 Type = EventType.Offline,
                 Status = EventStatus.Canceled,
-                MaxMembers = 3,
-                MinUserAge = 40,
+                MaxMembers = 20,
+                MinUserAge = 18,
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
-                StartDate = DateTime.Now,
+                StartDate = DateTime.Now.AddHours(14),
                 Interests = new List<Interest>(),
-                Attendees = new List<User>()
+                Attendees = new List<User>(),
+                Place = "Cooolest bar",
+                PhotoUrl = "84e06d11-3401-4bd1-abcf-aee900cec085.jpg"
+            };
+            var musicEvent = new Event()
+            {
+                HostId = IvanIvanov.Id,
+                Host = IvanIvanov,
+                Title = "My favorite opera",
+                Description = "Just listen it!",
+                Type = EventType.Offline,
+                Status = EventStatus.Created,
+                MaxMembers = 100,
+                MinUserAge = 10,
+                Created = DateTime.Now,
+                LastUpdated = DateTime.Now,
+                StartDate = new DateTime(2021, 2, 13, 14, 30, 30),
+                Interests = new List<Interest>(),
+                Attendees = new List<User>(),
+                PhotoUrl = "c18c2a3a-904d-4e6f-b538-56eee1b6cfd5.jpg",
+                Place = "САНКТЪ-ПЕТЕРБУРГЪ ОПЕРА"
+            };
+            var trainingEvent = new Event()
+            {
+                HostId = OlegTarusov.Id,
+                Host = OlegTarusov,
+                Title = "Soft skills training",
+                Description = "There is much debate at present surrounding the importance of soft skills and their importance in the work place. What’s clear is that while much investment is made in technical proficiency (so called “hard skills”), this only accounts for 20% of job success. The remaining 80% depends on how well we interact with other people – commonly called “soft skills”. Clearly there is nothing “soft” about anything that represents 80% of job success. Renowned organizations such as Google and LinkedIn have drawn the same conclusion and are changing their recruitment and training strategies accordingly. Does your organization recognize the importance of investing in soft skills courses?",
+                Type = EventType.Online,
+                Status = EventStatus.Created,
+                MaxMembers = 20,
+                MinUserAge = 20,
+                Created = DateTime.Now,
+                LastUpdated = DateTime.Now,
+                StartDate = DateTime.Now.AddDays(2).AddHours(6),
+                Interests = new List<Interest>(),
+                Attendees = new List<User>(),
+                Place = "Microsoft Teams",
+                PhotoUrl = "4c8bcac6-cb85-43d2-9b86-60d645a1dfc0.png"
             };
             #endregion
 
@@ -109,21 +152,21 @@ namespace EventinoApi
             #endregion
 
             #region add events and interests to users
-            IvanIvanov.SubscribedEvents.Add(outdoorEvent);
-            IvanIvanov.SubscribedEvents.Add(onlineGameEvent);
+            IvanIvanov.SubscribedEvents.Add(bycicleEvent);
+            IvanIvanov.SubscribedEvents.Add(footballEvent);
             IvanIvanov.SubscribedEvents.Add(partyEvent);
 
-            OlegTarusov.SubscribedEvents.Add(sportEvent);
-            OlegTarusov.SubscribedEvents.Add(onlineGameEvent);
+            OlegTarusov.SubscribedEvents.Add(laTomatina);
+            OlegTarusov.SubscribedEvents.Add(footballEvent);
             OlegTarusov.SubscribedEvents.Add(partyEvent);
 
-            NikolayKuksov.SubscribedEvents.Add(sportEvent);
-            NikolayKuksov.SubscribedEvents.Add(outdoorEvent);
+            NikolayKuksov.SubscribedEvents.Add(laTomatina);
+            NikolayKuksov.SubscribedEvents.Add(bycicleEvent);
             NikolayKuksov.SubscribedEvents.Add(partyEvent);
 
-            VladislavCheliadin.SubscribedEvents.Add(sportEvent);
-            VladislavCheliadin.SubscribedEvents.Add(outdoorEvent);
-            VladislavCheliadin.SubscribedEvents.Add(onlineGameEvent);
+            VladislavCheliadin.SubscribedEvents.Add(laTomatina);
+            VladislavCheliadin.SubscribedEvents.Add(bycicleEvent);
+            VladislavCheliadin.SubscribedEvents.Add(footballEvent);
 
             IvanIvanov.Interests.Add(sports);
             OlegTarusov.Interests.Add(outdoor);
@@ -137,29 +180,31 @@ namespace EventinoApi
             games.Users.Add(IvanIvanov);
             party.Users.Add(IvanIvanov);
 
-            sports.Events.Add(sportEvent);
-            outdoor.Events.Add(outdoorEvent);
-            online.Events.Add(onlineGameEvent);
-            games.Events.Add(onlineGameEvent);
+            sports.Events.Add(laTomatina);
+            outdoor.Events.Add(bycicleEvent);
+            online.Events.Add(footballEvent);
+            games.Events.Add(footballEvent);
             party.Events.Add(partyEvent);
             #endregion
 
             #region add users and interstst to events
-            sportEvent.Interests.Add(sports);
-            outdoorEvent.Interests.Add(outdoor);
-            onlineGameEvent.Interests.Add(online);
-            onlineGameEvent.Interests.Add(games);
+            laTomatina.Interests.Add(sports);
+            bycicleEvent.Interests.Add(outdoor);
+            footballEvent.Interests.Add(online);
+            footballEvent.Interests.Add(games);
             partyEvent.Interests.Add(party);
+            trainingEvent.Interests.Add(traning);
+            musicEvent.Interests.Add(music);
 
-            sportEvent.Attendees.Add(OlegTarusov);
-            outdoorEvent.Attendees.Add(IvanIvanov);
-            onlineGameEvent.Attendees.Add(OlegTarusov);
+            laTomatina.Attendees.Add(OlegTarusov);
+            bycicleEvent.Attendees.Add(IvanIvanov);
+            footballEvent.Attendees.Add(OlegTarusov);
             partyEvent.Attendees.Add(OlegTarusov);
             #endregion
 
             #region add data to db
             await dbContext.AddRangeAsync(sports, outdoor, games, party, movie, music, online, restarant, traning, classes);
-            await dbContext.AddRangeAsync(sportEvent, outdoorEvent, onlineGameEvent, partyEvent);
+            await dbContext.AddRangeAsync(laTomatina, bycicleEvent, footballEvent, partyEvent, musicEvent, trainingEvent);
             await dbContext.AddRangeAsync(friends1, friends2);
             await dbContext.SaveChangesAsync();
             #endregion
