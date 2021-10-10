@@ -31,7 +31,8 @@ const Main: FC = observer(() => {
             return (<EventCard
               title={eventCard.title}
               key={eventCard.id}
-              id={eventCard.id} />);
+              id={eventCard.id}
+              startDate={eventCard.startDate} />);
           })}
         </div>
 
@@ -47,7 +48,8 @@ const Main: FC = observer(() => {
             return (<EventCard
               title={eventCard.title}
               key={eventCard.id}
-              id={eventCard.id} />);
+              id={eventCard.id}
+              startDate={eventCard.startDate} />);
           })}
         </div>
 

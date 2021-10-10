@@ -32,8 +32,9 @@ const EventCard: FC<IEventCard> = ({
   friendsSubscr,
 }) => {
 
+  const date = new Date(startDate!);
+  const weeks = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
-  const weeks = ['T', 'W', 'T', 'F', 'S', 'S'];
   return (
     <div className='card Card' >
 
@@ -47,18 +48,10 @@ const EventCard: FC<IEventCard> = ({
           <div className='img-container'>
             <img className='date__icon' src='/icons/date.png' width='20' height='20' />
           </div>
-          <div>{startDate}</div>
+          <div>{date.toDateString()}</div>
         </div>
         <div className='card__date-week date-week'>
-          {/* функция генерации стиля на основе даты начала-даты конца и сопоставления с днями недели */}
-          {/* {weeks.map(weekday => <div className={... ? 'is-active' : ''} key={ }>{weekday} </div>)} */}
-          <div className='is-active'>M</div>
-          {/* <div>T</div>
-          <div>W</div>
-          <div>T</div>
-          <div>F</div>
-          <div>S</div>
-          <div>S</div> */}
+          {weeks.map((weekday, i) => <div className={date.getDay() === i ? 'is-active' : ''} key={i}>{weekday}</div>)}
         </div>
       </div>
 
