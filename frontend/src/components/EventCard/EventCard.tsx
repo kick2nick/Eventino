@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './eventCard.scss';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import eventsStore from '../../stores/EventsStore';
+
 export interface IEventCard {
   id: string,
   hostId?: string,
@@ -18,6 +20,7 @@ export interface IEventCard {
   friendsSubscr?: Array<string>,
   interests?: Array<string>,
   viewsCount?: number
+  // onClick: () => void;
 }
 
 const EventCard: FC<IEventCard> = ({
@@ -31,12 +34,24 @@ const EventCard: FC<IEventCard> = ({
   description,
   friendsSubscr,
 }) => {
+  const [allEvents, setAllEvents] = useState<any[]>([]);
 
+  useEffect(() => {
+    setAllEvents([...eventsStore.allEvents]);
+  }, [eventsStore.allEvents]);
+
+  console.log(title, description, endDate);
+  const history = useHistory();
+
+  const currentCardId = id;
+  function handleClick() {
+    history.push(`/event/${currentCardId}`);
+  }
   const date = new Date(startDate!);
   const weeks = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   return (
-    <div className='card Card' >
+    <div className='card Card' onClick={() => handleClick()} >
 
       <div className='card__top-group'>
         <h3 className='card__title'>{title}</h3>
@@ -55,7 +70,7 @@ const EventCard: FC<IEventCard> = ({
         </div>
       </div>
 
-      <img src={photoUrl} className='card__img' />
+      <img src={`https://eventino-dev.azurewebsites.net/api/pictures/${photoUrl}`} className='card__img' />
 
       <div className='card__bottom-group'>
         <p className='card__description'>{description}</p>

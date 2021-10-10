@@ -2,11 +2,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import FilterBar from '../FiltersBar/FilterBar';
-import { IEventCard, EventCard } from '../EventCard/EventCard';
+import { EventCard } from '../EventCard/EventCard';
 import eventsStore from '../../stores/EventsStore';
 import './main.scss';
 import { Input } from 'antd';
-// import { Calendar } from 'react-date-range';
 import 'antd/dist/antd.css';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -15,9 +14,6 @@ import { DatePicker, Space } from 'antd';
 
 const Main: FC = observer(() => {
   const title = 'Popular';
-  const eventsPopular: Array<IEventCard> = [];
-
-
   const { RangePicker } = DatePicker;
 
   const { Search } = Input;
@@ -58,37 +54,26 @@ const size = 'default';
         </Space>
         </div>
       </div>
-      <section className='events-by-type'>
-        <h2 className='events-by-type__title'>{title}</h2>
-        {/* <div>блок с сортировкой</div> */}
-
-        <div className='events-group'>
-          {allEvents.map(eventCard => {
-            return (<EventCard
-              title={eventCard.title}
-              key={eventCard.id}
-              id={eventCard.id}
-              startDate={eventCard.startDate} />);
-          })}
-        </div>
-
-        <button className='button button--more'>more events</button>
-      </section>
 
       <div className='events-by-type'>
         <h2 className='events-by-type__title'>{title}</h2>
 
-
         <div className='events-group'>
           {allEvents.map(eventCard => {
             return (<EventCard
               title={eventCard.title}
               key={eventCard.id}
               id={eventCard.id}
-              startDate={eventCard.startDate} />);
+              viewsCount={eventCard.viewsCount}
+              startDate={eventCard.startDate}
+              endDate={eventCard.endDate}
+              photoUrl={eventCard.photoUrl}
+              interests={eventCard.interests}
+              description={eventCard.description}
+              friendsSubscr={eventCard.friendsSubscr}
+            />);
           })}
         </div>
-
 
         <button className='button button--more'>more events</button>
       </div>

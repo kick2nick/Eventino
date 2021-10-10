@@ -65,7 +65,7 @@ namespace EventinoApi.Controllers
 
             if (confirmResult.Succeeded)
                 await _signInManager.SignInAsync(user, false);
-            return confirmResult.Succeeded is true ? Ok("Email confirmed.") : BadRequest(confirmResult.Errors.Select(s => s.Description));
+            return confirmResult.Succeeded is true ? Redirect("~/Home") : BadRequest(confirmResult.Errors.Select(s => s.Description));
         }
     }
 }
