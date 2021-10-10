@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { AuthApi } from '../../../services/apiService';
 import './SignUp.scss';
-import { AuthContext } from '../Auth/AuthContext';
+import CurrentUser from '../../../stores/UserStore';
 
 export const SignUp: FC = () => {
-  const { switchToLogIn, switchToClose, active } = useContext(AuthContext);
   const [validMail, setValidMail] = useState(false);
   const [validFullName, setValidFullName] = useState(false);
   const [validSubmit, setValidSubmit] = useState(false);
@@ -19,15 +18,14 @@ export const SignUp: FC = () => {
 
   const def = () => null;
 
-  const handleClickClose = switchToClose || def;
 
   const handleClickSubmit = () => authApi.postRegister(fullName, email).then(data => {
-    if (typeof data === 'string') handleClickClose();
+    if (typeof data === 'string') CurrentUser.closeModal();
     else setErrRequest('Somthing heppend!');
   }).catch(() => setErrRequest('Somthing heppend!'));
 
   const handleClickGoogle = () => authApi.getGoogleLogIn().then(data => {
-    if (typeof data === 'string') handleClickClose();
+    if (typeof data === 'string') CurrentUser.closeModal();
     else setErrRequest('Somthing heppend!');
   }).catch(() => setErrRequest('Somthing heppend!'));
 
@@ -48,12 +46,12 @@ export const SignUp: FC = () => {
   }, [email, fullName]);
 
   return (
-    <div className={active === 'signup' ? 'modal is-active' : 'modal'}>
-      <div className="modal-background" onClick={handleClickClose}></div>
+    <div className={CurrentUser.modal === 'signup' ? 'modal is-active' : 'modal'}>
+      <div className="modal-background" onClick={() => CurrentUser.closeModal()}></div>
       <div className="modal-card">
         <div className="box">
           <div className="is-flex is-justify-content-end">
-            <button className="delete" aria-label="close" onClick={handleClickClose}></button>
+            <button className="delete" aria-label="close" onClick={() => CurrentUser.closeModal()}></button>
           </div>
           {errRequest !== '' ?
             <article className="message is-danger">
@@ -101,7 +99,7 @@ export const SignUp: FC = () => {
                 <i className="fas fa-Google"></i>
               </span>
             </div>
-            <button className="sing-up-link mt-3" onClick={switchToLogIn}>Have an account? Log in</button>
+            <button className="sing-up-link mt-3" onClick={() => CurrentUser.openLogIn()}>Have an account? Log in</button>
           </section>
         </div>
       </div>

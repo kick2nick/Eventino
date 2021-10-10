@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { AuthApi } from '../../../services/apiService';
 import './LogIn.scss';
-import { AuthContext } from '../Auth/AuthContext';
-
+import CurrentUser from '../../../stores/UserStore';
 
 export const LogIn: FC = () => {
 
-  const { switchToSignUp, switchToClose, active } = useContext(AuthContext);
   const [validMail, setValidMail] = useState(false);
   const [email, setEmail] = useState('');
   const [errRequest, setErrRequest] = useState('');
@@ -14,14 +12,13 @@ export const LogIn: FC = () => {
 
   const def = () => null;
 
-  const handleClickClose = switchToClose || def;
   const handleChangeEmail = (value: string) => setEmail(value);
   const handleClickSubmit = () => authApi.postSignIn(email).then(data => {
-    if (typeof data === 'string') handleClickClose();
+    if (typeof data === 'string') CurrentUser.closeModal();
     else setErrRequest('Please sing up!');
   }).catch(() => setErrRequest('Please sign up!'));
   const handleClickGoogle = () => authApi.getGoogleLogIn().then(data => {
-    if (typeof data === 'string') handleClickClose();
+    if (typeof data === 'string') CurrentUser.closeModal();
     else setErrRequest('Somthing heppend!');
   }).catch(() => setErrRequest('Somthing heppend!'));
 
@@ -37,12 +34,12 @@ export const LogIn: FC = () => {
   }, [email]);
 
   return (
-    <div className={active === 'login' ? 'modal is-active' : 'modal'}>
-      <div className="modal-background" onClick={handleClickClose}></div>
+    <div className={CurrentUser.modal === 'login' ? 'modal is-active' : 'modal'}>
+      <div className="modal-background" onClick={() => CurrentUser.closeModal()}></div>
       <div className="modal-card">
         <div className="box">
           <div className="is-flex is-justify-content-end">
-            <button className="delete" aria-label="close" onClick={handleClickClose}></button>
+            <button className="delete" aria-label="close" onClick={() => CurrentUser.closeModal()}></button>
           </div>
           {errRequest !== '' ?
             <article className="message is-danger">
@@ -80,7 +77,7 @@ export const LogIn: FC = () => {
               </span>
             </div>
 
-            <button className="sing-up-link mt-3" onClick={switchToSignUp}>Don't have an account? Sign Up</button>
+            <button className="sing-up-link mt-3" onClick={() => CurrentUser.openSignUp()}>Don't have an account? Sign Up</button>
           </section>
         </div>
       </div>
