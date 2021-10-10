@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import currentUser from '../../stores/UserStore';
+import Tabs from './Tabs';
 import './myProfile.scss';
 
 
@@ -9,8 +10,8 @@ const MyProfile: FC = observer(() => {
   // console.log(currentUser.id);
   return (
     <section className='my-profile'>
+      <Tabs />
       <div className='container'>
-        {/* tabs */}
         <div className='user__avatar'>
           <img src={currentUser.photoFileName} alt="user's avatar" width='160' height='160' />
         </div>
@@ -55,8 +56,8 @@ const MyProfile: FC = observer(() => {
               </div>
             </div>
             <div className="control">
-              <Link to={'/'} className='button is-success is-outlined'>Back to main</Link>
-              <Link to={'/editProfile'} className='button is-success'>Edit Profile</Link>
+              <Link to='/' className='button is-success is-outlined'>Back to main</Link>
+              <Link to='/editProfile' className='button is-success'>Edit Profile</Link>
             </div>
           </div>
         </div>
