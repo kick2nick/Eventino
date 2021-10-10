@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { FC, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
@@ -7,8 +8,10 @@ const apiUrl = 'https://eventino-dev.azurewebsites.net/api';
 const eventStore = {
   id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
   hostId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-  title: 'Test titkle',
-  description: 'test descript',
+  title: 'Space kitten attack',
+  description: 'This will be the most unforgettable '
+    + 'event in your life! A giant kitten with the body of'
+    + 'a t-rex walks around the city and shoots lasers from its eyes!',
   photoUrl: 'https://pbs.twimg.com/media/Cdx37K1UsAESeJp.jpg',
   place: 'string',
   type: 0,
@@ -56,6 +59,29 @@ const EventViewPage: FC = observer(() => {
 
   }, []);
 
+  const DateTransform = (string: string) => {
+    const date = new Date(string);
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    //@ts-ignore
+    return new Intl.DateTimeFormat('en-EN', options).format(date);
+  };
+  const DateTransformWeekday = (string: string) => {
+    const date = new Date(string);
+    const options = { weekday: 'long' };
+    //@ts-ignore
+    return new Intl.DateTimeFormat('en-EN', options).format(date);
+  };
+
+  const DateTransformTime = (string: string) => {
+    const date = new Date(string);
+    const options = {
+      hour: 'numeric', minute: 'numeric',
+      hour12: false,
+    };
+    //@ts-ignore
+    return new Intl.DateTimeFormat('en-EN', options).format(date);
+  };
+
   return (
     <section>
       <h2 className='event-title'>{eventStore.title}</h2>
@@ -67,8 +93,8 @@ const EventViewPage: FC = observer(() => {
             {eventStore.description}
           </div>
           <div className="control">
-            <Link to='/' className='back-to-menu-button'>BACK TO MENU</Link>
-            <Link to='/' className='subscribe-button'>SUBSCRIBE</Link>
+            <Link to='/' className='button is-outline'>Back to main</Link>
+            <Link to='/' className='button is-primary'>SUBSCRIBE</Link>
           </div>
         </div>
 
@@ -76,22 +102,26 @@ const EventViewPage: FC = observer(() => {
         <div className="right-group">
           <div className="details-group">
             <div className="event-date">
-              {eventStore.startDate}
+              <div className='date'><img src="/icons/calendar.png" alt="" />{DateTransform(eventStore.startDate)}</div>
+              <div className='weekday'>{DateTransformWeekday(eventStore.startDate)}</div>
             </div>
             <div className="event-time">
-              {eventStore.startDate}
+              <img src="/icons/date.png" alt="" /><span>{DateTransformTime(eventStore.startDate)}</span>
             </div>
             <div className="event-place">
-              {eventStore.place}
+              <img src="/icons/place.png" alt="" /><span>St. Petersburg</span>
             </div>
           </div>
-          <div className="status">{eventStore.status}</div>
-          <div className="max-members">{eventStore.maxMembers}</div>
-          <div className="current">{eventStore.attendees}</div>
-          <div className="subs">{eventStore.friendsSubscr}</div>
-          {eventStore.interests.map(tag => <button className='card__tag button is-rounded' key={tag}>
-            <img className='tag__icon' src={`/icons/${tag}.svg`} />{tag}
-          </button>)}
+          <div className="status"><div className='green-round' />Waiting</div>
+          <div className="max-members">Max participants:<span>50</span></div>
+          <div className="current">Current participants:<span>18</span></div>
+          <div className="subs">2 friends subscribed</div>
+
+          <div className="event-tags">
+            {eventStore.interests.map(tag => <button className='card__tag button is-rounded' key={tag}>
+              <img className='tag__icon' src={`/icons/${tag}.svg`} />{tag}
+            </button>)}
+          </div>
         </div>
       </div>
     </section>
