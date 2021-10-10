@@ -1,14 +1,36 @@
-import React, { FC } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { FC, useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import FilterBar from '../FiltersBar/FilterBar';
 import { IEventCard, EventCard } from '../EventCard/EventCard';
+import eventsStore from '../../stores/EventsStore';
 import './main.scss';
 
-const Main: FC = () => {
+const Main: FC = observer(() => {
   const title = 'Popular';
-  const eventsPopular: Array<IEventCard> = [
-    { title: 'Title', id: 1 },
-    { title: 'Title', id: 2 },
-    { title: 'Title', id: 3 }];
+  const eventsPopular: Array<IEventCard> = [];
+
+  const [allEvents, setAllEvents] = useState<any[]>([]);
+
+  // const allEvents = [
+  //   {
+  //     title: 'title',
+  //     id: 'id',
+  //   },
+  //   {
+  //     title: 'title',
+  //     id: 'id',
+  //   },
+  //   {
+  //     title: 'title',
+  //     id: 'id',
+  //   },
+  // ];
+
+  useEffect(() => {
+    setAllEvents([...eventsStore.allEvents]);
+  }, [eventsStore.allEvents]);
+
   // fix: DRY
   return (
     <main className='main'>
@@ -20,7 +42,7 @@ const Main: FC = () => {
         {/* <div>блок с сортировкой</div> */}
 
         <div className='events-group'>
-          {eventsPopular.map(eventCard => {
+          {allEvents.map(eventCard => {
             return (<EventCard
               title={eventCard.title}
               key={eventCard.id}
@@ -34,8 +56,9 @@ const Main: FC = () => {
       <div className='events-by-type'>
         <h2 className='events-by-type__title'>{title}</h2>
 
+
         <div className='events-group'>
-          {eventsPopular.map(eventCard => {
+          {allEvents.map(eventCard => {
             return (<EventCard
               title={eventCard.title}
               key={eventCard.id}
@@ -43,11 +66,12 @@ const Main: FC = () => {
           })}
         </div>
 
+
         <button className='button button--more'>more events</button>
       </div>
 
     </main>
   );
-};
+});
 
 export default Main;
