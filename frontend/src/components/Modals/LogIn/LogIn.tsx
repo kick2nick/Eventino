@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC } from 'react';
 import { AuthApi } from '../../../services/apiService';
 import './LogIn.scss';
-import CurrentUser from '../../../stores/UserStore';
+import currentUser from '../../../stores/UserStore';
 
 export const LogIn: FC = () => {
 
@@ -14,11 +14,11 @@ export const LogIn: FC = () => {
 
   const handleChangeEmail = (value: string) => setEmail(value);
   const handleClickSubmit = () => authApi.postSignIn(email).then(data => {
-    if (typeof data === 'string') CurrentUser.closeModal();
+    if (typeof data === 'string') currentUser.closeModal();
     else setErrRequest('Please sing up!');
   }).catch(() => setErrRequest('Please sign up!'));
   const handleClickGoogle = () => authApi.getGoogleLogIn().then(data => {
-    if (typeof data === 'string') CurrentUser.closeModal();
+    if (typeof data === 'string') currentUser.closeModal();
     else setErrRequest('Somthing heppend!');
   }).catch(() => setErrRequest('Somthing heppend!'));
 
@@ -34,12 +34,12 @@ export const LogIn: FC = () => {
   }, [email]);
 
   return (
-    <div className={CurrentUser.modal === 'login' ? 'modal is-active' : 'modal'}>
-      <div className="modal-background" onClick={() => CurrentUser.closeModal()}></div>
+    <div className={currentUser.modal === 'login' ? 'modal is-active' : 'modal'}>
+      <div className="modal-background" onClick={() => currentUser.closeModal()}></div>
       <div className="modal-card">
         <div className="box">
           <div className="is-flex is-justify-content-end">
-            <button className="delete" aria-label="close" onClick={() => CurrentUser.closeModal()}></button>
+            <button className="delete" aria-label="close" onClick={() => currentUser.closeModal()}></button>
           </div>
           {errRequest !== '' ?
             <article className="message is-danger">
@@ -77,7 +77,7 @@ export const LogIn: FC = () => {
               </span>
             </div>
 
-            <button className="sing-up-link mt-3" onClick={() => CurrentUser.openSignUp()}>Don't have an account? Sign Up</button>
+            <button className="sing-up-link mt-3" onClick={() => currentUser.openSignUp()}>Don't have an account? Sign Up</button>
           </section>
         </div>
       </div>
