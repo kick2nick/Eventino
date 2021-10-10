@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Auth } from '../Modals/Auth/Auth';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 import './Header.scss';
@@ -22,7 +21,9 @@ const Header: FC = observer(() => {
         </div>
         <div>
           <div >
-            <Auth />
+            {currentUser.isAuth ?
+              <button className="button is-outlined header__button" onClick={() => currentUser.openLogIn()}>Sing Out</button> :
+              <button className="button is-outlined header__button" onClick={() => currentUser.openLogIn()}>Log In</button>}
           </div>
 
         </div>
