@@ -2,28 +2,45 @@
 import React, { FC } from 'react';
 import './eventCard.scss';
 import { Link } from 'react-router-dom';
+// export interface IEventCard {
+//   id: string,
+//   title: string,
+//   date?: any,    // new Date
+//   img?: string,
+//   description?: string,
+//   tags?: Array<string>,    // string[]
+//   watchCount?: number,
+//   friendsSubscr?: Array<string>
+// }
+
 export interface IEventCard {
-  id: number,
-  title: string,
-  date?: any,    // new Date
-  img?: string,
+  id: string,
+  hostId?: string,
+  title?: string,
   description?: string,
-  tags?: Array<string>,    // string[]
-  watchCount?: number,
-  friendsSubscr?: Array<string>
+  photoUrl?: string,
+  place?: string,
+  type?: number,
+  status?: number,
+  maxMembers?: number,
+  startDate?: string,
+  endDate?: string,
+  attendees?: Array<string>,
+  friendsSubscr?: Array<string>,
+  interests?: Array<string>,
+  viewsCount?: number
 }
 
-const EventCard: FC<IEventCard> = ({
-  title = 'title',
-  date = 'Oct 14, 2021',
-  img = 'https://pbs.twimg.com/media/Cdx37K1UsAESeJp.jpg',
-  description = 'Jake Burns will be joining us to tell us about where he thinks you can enjoy the best cycling.',
-  tags = ['Sports', 'Outdoor'],
-  watchCount = 17,
-  friendsSubscr = ['Petya', 'Vasya'],
-}) => {
+const EventCard: FC<IEventCard> = () => {
 
-  console.log();
+  // console.log(id);
+  const title = 'title';
+  const watchCount = 0;
+  const date = 0;
+  const img = 'sdsd';
+  const interests = [{ id: 1, tag: '' }];
+  const description = 'description';
+  const friendsSubscr = ['friendsSubscr', 'friendsSubscr'];
 
   return (
     <div className='card Card' >
@@ -55,7 +72,7 @@ const EventCard: FC<IEventCard> = ({
 
       <div className='card__bottom-group'>
         <p className='card__description'>{description}</p>
-        {tags.map(tag => <button className='card__tag button is-rounded' key={tag}>
+        {interests.map(tag => <button className='card__tag button is-rounded' key={tag.id}>
           <img className='tag__icon' src={`/icons/${tag}.svg`} />{tag}
         </button>)}
         <Link to='' className='card__friends-subscr'>{friendsSubscr.length} friends subscribed</Link>
