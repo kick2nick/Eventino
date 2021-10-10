@@ -31,8 +31,8 @@ namespace EventinoApi
             var movie = new Interest() { Name = "Movie", Events = new List<Event>(), Users = new List<User>() };
             var music = new Interest() { Name = "Music", Events = new List<Event>(), Users = new List<User>() };
             var online = new Interest() { Name = "Online", Events = new List<Event>(), Users = new List<User>() };
-            var restarant = new Interest() { Name = "Restarant", Events = new List<Event>(), Users = new List<User>() };
-            var traning = new Interest() { Name = "Traning", Events = new List<Event>(), Users = new List<User>() };
+            var restarant = new Interest() { Name = "Restaurant", Events = new List<Event>(), Users = new List<User>() };
+            var traning = new Interest() { Name = "Training", Events = new List<Event>(), Users = new List<User>() };
             var classes = new Interest() { Name = "Classes", Events = new List<Event>(), Users = new List<User>() };
             #endregion
 
@@ -53,7 +53,8 @@ namespace EventinoApi
                 Interests = new List<Interest>(),
                 Attendees = new List<User>(),
                 PhotoUrl = "cc2da6cc-086c-417b-8f1a-9e1ce14671ff.jpg",
-                Place = "Spain"
+                Place = "Spain",
+                ViewsCount = 12
             };
             var bycicleEvent = new Event()
             {
@@ -71,7 +72,8 @@ namespace EventinoApi
                 Interests = new List<Interest>(),
                 Attendees = new List<User>(),
                 Place = "Bristol",
-                PhotoUrl = "53046036-8755-46f9-beb1-291be1fe75f6.jpg"
+                PhotoUrl = "53046036-8755-46f9-beb1-291be1fe75f6.jpg",
+                ViewsCount = 20
             };
             var footballEvent = new Event()
             {
@@ -88,7 +90,8 @@ namespace EventinoApi
                 StartDate = DateTime.Now.AddDays(7).AddHours(1),
                 Interests = new List<Interest>(),
                 Attendees = new List<User>(),
-                PhotoUrl = "1b6b3189-5abe-41b9-a9aa-1515d618762b.jpg"
+                PhotoUrl = "1b6b3189-5abe-41b9-a9aa-1515d618762b.jpg",
+                ViewsCount = 43
             };
             var partyEvent = new Event()
             {
@@ -106,7 +109,8 @@ namespace EventinoApi
                 Interests = new List<Interest>(),
                 Attendees = new List<User>(),
                 Place = "Cooolest bar",
-                PhotoUrl = "84e06d11-3401-4bd1-abcf-aee900cec085.jpg"
+                PhotoUrl = "84e06d11-3401-4bd1-abcf-aee900cec085.jpg",
+                ViewsCount = 5
             };
             var musicEvent = new Event()
             {
@@ -124,7 +128,8 @@ namespace EventinoApi
                 Interests = new List<Interest>(),
                 Attendees = new List<User>(),
                 PhotoUrl = "c18c2a3a-904d-4e6f-b538-56eee1b6cfd5.jpg",
-                Place = "САНКТЪ-ПЕТЕРБУРГЪ ОПЕРА"
+                Place = "САНКТЪ-ПЕТЕРБУРГЪ ОПЕРА",
+                ViewsCount = 15
             };
             var trainingEvent = new Event()
             {
@@ -142,7 +147,8 @@ namespace EventinoApi
                 Interests = new List<Interest>(),
                 Attendees = new List<User>(),
                 Place = "Microsoft Teams",
-                PhotoUrl = "4c8bcac6-cb85-43d2-9b86-60d645a1dfc0.png"
+                PhotoUrl = "4c8bcac6-cb85-43d2-9b86-60d645a1dfc0.png",
+                ViewsCount = 26
             };
             #endregion
 
