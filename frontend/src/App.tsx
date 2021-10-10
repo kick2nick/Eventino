@@ -6,7 +6,7 @@ import './App.scss';
 import Main from './components/Main/Main';
 import MyProfile from './components/MyProfile/MyProfile';
 import Header from './components/Header/Header';
-
+import EventViewPage from './components/EventViewPage/EventViewPage';
 
 const App: FC = () => {
   const isAuth = true;
@@ -23,6 +23,10 @@ const App: FC = () => {
 
           <Route path="/myProfile" exact>
             {myProfilePage}
+          </Route>
+
+          <Route path='/event'>
+            <EventViewPage />
           </Route>
           {/* <Redirect to="/" /> */}
         </Switch>

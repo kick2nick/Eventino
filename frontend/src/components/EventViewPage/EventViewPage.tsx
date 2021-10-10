@@ -59,13 +59,13 @@ const EventViewPage: FC = observer(() => {
   return (
     <section>
       <h2 className='event-title'>{eventStore.title}</h2>
-      <div className="event-view-page">
+
+      <div className="event-view-page container">
         <div className="left-group">
-          <img className='event-image' src={eventStore.photoUrl} alt="" />
+          <img className='event-image' src={eventStore.photoUrl} alt="" width='560' height='320' />
           <div className="event-description">
             {eventStore.description}
           </div>
-          {/* </img> */}
           <div className="control">
             <Link to='/' className='back-to-menu-button'>BACK TO MENU</Link>
             <Link to='/' className='subscribe-button'>SUBSCRIBE</Link>

@@ -1,18 +1,21 @@
+.event-title {
+  margin: 56px auto;
+  font-size: 34px;
+  line-height: 106%;
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: normal;
+  font-style: normal;
+}
 .event-view-page {
-  display: flex;
-  justify-content: space-around;
-
-  .event-title {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 34px;
-    line-height: 106%;
-    color: rgba(0, 0, 0, 0.87);
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 
   .left-group {
     .event-image {
-      bottom: 0px;
+      height: 320px;
+      width: 560px;
+      object-fit: cover;
+      object-position: top;
       border-radius: 8px;
     }
 
@@ -48,6 +51,8 @@
   }
 
   .right-group {
+    text-align: left;
+    margin-left: 112px;
     .event-date {
       font-weight: normal;
       font-size: 16px;

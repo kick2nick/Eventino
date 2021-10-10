@@ -40,7 +40,7 @@ const EventCard: FC<IEventCard> = ({
     setAllEvents([...eventsStore.allEvents]);
   }, [eventsStore.allEvents]);
 
-  console.log(description, endDate);
+  console.log(title, description, endDate);
   const history = useHistory();
 
   const currentCardId = id;
@@ -71,7 +71,7 @@ const EventCard: FC<IEventCard> = ({
         </div>
       </div>
 
-      <img src={photoUrl} className='card__img' />
+      <img src={`https://eventino-dev.azurewebsites.net/api/pictures/${photoUrl}`} className='card__img' />
 
       <div className='card__bottom-group'>
         <p className='card__description'>{description}</p>
