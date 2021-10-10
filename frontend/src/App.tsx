@@ -7,6 +7,7 @@ import Main from './components/Main/Main';
 import MyProfile from './components/MyProfile/MyProfile';
 import Header from './components/Header/Header';
 import Auth from './components/Modals/Auth/Auth';
+import Footer from './components/Footer/Footer';
 
 
 const App: FC = () => {
@@ -27,7 +28,7 @@ const App: FC = () => {
           </Route>
           <Redirect to="/" />
         </Switch>
-        <footer />
+        <Footer />
         <Auth />
 
       </BrowserRouter>
