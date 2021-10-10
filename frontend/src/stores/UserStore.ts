@@ -2,6 +2,8 @@ import { makeAutoObservable } from 'mobx';
 
 class CurrentUser {
 
+  isAuth = true;
+
   id = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
   email = 'email';
@@ -32,6 +34,14 @@ class CurrentUser {
 
   getCurrentUser() {
 
+  }
+
+  login() {
+    this.isAuth = true;
+  }
+
+  logout() {
+    this.isAuth = false;
   }
 
   updateCurrentUser() {
