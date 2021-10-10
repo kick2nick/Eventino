@@ -20,38 +20,20 @@ const Main: FC = observer(() => {
 
   const [allEvents, setAllEvents] = useState<any[]>([]);
 
-  const onChange = (value: any, dateString: any) => {
-    console.log('Selected Time: ', value);
-    console.log('Formatted Selected Time: ', dateString);
-  };
-  
-  const onOk = (value: any) => {
-    console.log('onOk: ', value);
-  };
-
   useEffect(() => {
     setAllEvents([...eventsStore.allEvents]);
   }, [eventsStore.allEvents]);
 
-  const onPanelChange = (date: any) => {
-    console.log(date); // native Date object
-  };
-
-  const onSearch = () => {
-    // to fill
-  };
-const size = 'default';
-  // fix: DRY
   return (
     <main className='main'>
       <FilterBar />
 
-      <div className="search-and-calendar">
-        <Search placeholder="SEARCH EVENT" allowClear onSearch={onSearch} className="search" />
+      <div className="search-and-calendar container">
+        <Search placeholder="SEARCH EVENT" allowClear className="search" />
         <div className="site-calendar-demo-card">
-        <Space direction="vertical" size={12}>
-        <RangePicker />
-        </Space>
+          <Space direction="vertical" size={12}>
+            <RangePicker />
+          </Space>
         </div>
       </div>
 

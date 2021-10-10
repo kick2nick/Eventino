@@ -9,9 +9,9 @@ class CurrentUser {
 
   id = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
-  email = 'email';
+  email = 'test@gmail.com';
 
-  name = 'Name';
+  name = 'Anna Iustus';
 
   photoFileName = 'avatar.png';
 
@@ -73,7 +73,6 @@ class CurrentUser {
   updateCurrentUser() {
 
   }
-
 
 }
 
