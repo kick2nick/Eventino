@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './eventCard.scss';
 import { Link, useHistory } from 'react-router-dom';
+import eventsStore from '../../stores/EventsStore';
+
 export interface IEventCard {
   id: string,
   hostId?: string,
@@ -31,9 +33,14 @@ const EventCard: FC<IEventCard> = ({
   interests,
   description,
   friendsSubscr,
-  // onClick,
 }) => {
+  const [allEvents, setAllEvents] = useState<any[]>([]);
 
+  useEffect(() => {
+    setAllEvents([...eventsStore.allEvents]);
+  }, [eventsStore.allEvents]);
+
+  console.log(description, endDate);
   const history = useHistory();
 
   const currentCardId = id;
@@ -61,12 +68,6 @@ const EventCard: FC<IEventCard> = ({
           {/* функция генерации стиля на основе даты начала-даты конца и сопоставления с днями недели */}
           {/* {weeks.map(weekday => <div className={... ? 'is-active' : ''} key={ }>{weekday} </div>)} */}
           <div className='is-active'>M</div>
-          {/* <div>T</div>
-          <div>W</div>
-          <div>T</div>
-          <div>F</div>
-          <div>S</div>
-          <div>S</div> */}
         </div>
       </div>
 

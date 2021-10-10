@@ -44,10 +44,17 @@ const Main: FC = observer(() => {
         <div className='events-group'>
           {allEvents.map(eventCard => {
             return (<EventCard
-              // onClick={}
               title={eventCard.title}
               key={eventCard.id}
-              id={eventCard.id} />);
+              id={eventCard.id}
+              viewsCount={eventCard.viewsCount}
+              startDate={eventCard.startDate}
+              endDate={eventCard.endDate}
+              photoUrl={eventCard.photoUrl}
+              interests={eventCard.interests}
+              description={eventCard.description}
+              friendsSubscr={eventCard.friendsSubscr}
+            />);
           })}
         </div>
 
