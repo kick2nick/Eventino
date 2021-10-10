@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.scss';
 import Main from './components/Main/Main';
 import MyProfile from './components/MyProfile/MyProfile';
+import Header from './components/Header/Header';
 
 
 const App: FC = () => {
@@ -13,7 +14,7 @@ const App: FC = () => {
   return (
     <div className="App">
       <BrowserRouter>
-        <header className="App__header" />
+        <Header />
         <Switch>
           <Route path="/" exact>
             <Main />
