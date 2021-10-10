@@ -13,11 +13,15 @@ class CurrentUser {
   interests = [
     {
       id: 0,
-      name: 'Classes',
+      name: 'Music',
     },
     {
-      id: 0,
-      name: 'Sports',
+      id: 1,
+      name: 'Party',
+    },
+    {
+      id: 2,
+      name: 'Outdoor',
     },
   ];
 

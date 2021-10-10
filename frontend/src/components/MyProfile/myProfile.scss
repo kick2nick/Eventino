@@ -1,3 +1,124 @@
 .filter-green {
   filter: invert(60%) sepia(20%) saturate(982%) hue-rotate(70deg) brightness(97%) contrast(88%);
 }
+
+.my-profile {
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0 107px;
+  }
+
+  .user__title {
+    font-size: 34px;
+    line-height: 106%;
+  }
+  .user__info {
+    padding-left: 124px;
+    text-align: left;
+    .email {
+      margin: 15px auto 50px;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.15px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    .password-reset {
+      font-size: 14px;
+      line-height: 143%;
+      letter-spacing: 0.25px;
+      text-decoration-line: underline;
+      color: #0d47a1;
+    }
+    .input-group {
+      margin-bottom: 5px;
+    }
+    .interests {
+      .icon-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px 15px;
+        justify-content: space-between;
+        margin: auto 2px;
+      }
+      width: 176px;
+    }
+    .interests__title {
+      margin: 54px auto 13px;
+      font-size: 12px;
+      line-height: 133%;
+      letter-spacing: 0.4px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    // .interests__icon {
+    //   margin-right: 5px;
+    // }
+
+    .user-week__title {
+      margin: 56px 2px 17px;
+
+      font-size: 12px;
+      line-height: 133%;
+      letter-spacing: 0.4px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    .week-date {
+      display: flex;
+      justify-content: space-evenly;
+      width: 256px;
+      margin: 24px 3px 78px;
+
+      div {
+        text-align: center;
+        height: 30px;
+        width: 30px;
+        padding-top: 5px;
+        line-height: 30px;
+        padding-top: 5px;
+      }
+      .is-active {
+        background-color: #dd2c00;
+        border: 0px solid transparent;
+        border-radius: 50%;
+        color: #ffffff;
+      }
+
+      div {
+        font-size: 14px;
+        line-height: 143%;
+        letter-spacing: 0.25px;
+      }
+
+      // align-items: center;
+      // text-align: center;
+    }
+  }
+  .user__avatar {
+    img {
+      border: 0px solid transparent;
+      border-radius: 50%;
+    }
+  }
+
+  .control {
+    .button {
+      margin-right: 83px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 114%;
+      letter-spacing: 1.25px;
+      text-transform: uppercase;
+      // color: #2e7d32;
+      // &.button.is-success {
+      //   background-color: #2e7d32;
+      //   &.is-outlined {
+      //     background-color: #fff;
+      //   }
+      // }
+    }
+  }
+}

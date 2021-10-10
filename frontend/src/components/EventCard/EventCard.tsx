@@ -18,13 +18,13 @@ const EventCard: FC<IEventCard> = ({
   date = 'Oct 14, 2021',
   img = 'https://pbs.twimg.com/media/Cdx37K1UsAESeJp.jpg',
   description = 'Jake Burns will be joining us to tell us about where he thinks you can enjoy the best cycling.',
-  tags = ['sport', 'outdoor'],
+  tags = ['Sports', 'Outdoor'],
   watchCount = 17,
   friendsSubscr = ['Petya', 'Vasya'],
 }) => {
 
   console.log();
-  
+
   return (
     <div className='card Card' >
 
@@ -41,7 +41,7 @@ const EventCard: FC<IEventCard> = ({
           <div>{date}</div>
         </div>
         <div className='card__date-week date-week'>
-          <div>M</div>
+          <div className='is-active'>M</div>
           <div>T</div>
           <div>W</div>
           <div>T</div>
@@ -56,7 +56,7 @@ const EventCard: FC<IEventCard> = ({
       <div className='card__bottom-group'>
         <p className='card__description'>{description}</p>
         {tags.map(tag => <button className='card__tag button is-rounded' key={tag}>
-          <img className='tag__icon' src={`/icons/${tag}.png`} />{tag}
+          <img className='tag__icon' src={`/icons/${tag}.svg`} />{tag}
         </button>)}
         <Link to='' className='card__friends-subscr'>{friendsSubscr.length} friends subscribed</Link>
         <Link to='' className='card__link'>Subscribe</Link>
