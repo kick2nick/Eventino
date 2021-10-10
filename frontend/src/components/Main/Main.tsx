@@ -12,21 +12,6 @@ const Main: FC = observer(() => {
 
   const [allEvents, setAllEvents] = useState<any[]>([]);
 
-  // const allEvents = [
-  //   {
-  //     title: 'title',
-  //     id: 'id',
-  //   },
-  //   {
-  //     title: 'title',
-  //     id: 'id',
-  //   },
-  //   {
-  //     title: 'title',
-  //     id: 'id',
-  //   },
-  // ];
-
   useEffect(() => {
     setAllEvents([...eventsStore.allEvents]);
   }, [eventsStore.allEvents]);

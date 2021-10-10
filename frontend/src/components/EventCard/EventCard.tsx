@@ -25,12 +25,15 @@ const EventCard: FC<IEventCard> = ({
   id,
   viewsCount,
   startDate,
+  endDate,
   photoUrl,
   interests,
   description,
   friendsSubscr,
 }) => {
 
+
+  const weeks = ['T', 'W', 'T', 'F', 'S', 'S'];
   return (
     <div className='card Card' >
 
@@ -48,13 +51,14 @@ const EventCard: FC<IEventCard> = ({
         </div>
         <div className='card__date-week date-week'>
           {/* функция генерации стиля на основе даты начала-даты конца и сопоставления с днями недели */}
+          {/* {weeks.map(weekday => <div className={... ? 'is-active' : ''} key={ }>{weekday} </div>)} */}
           <div className='is-active'>M</div>
-          <div>T</div>
+          {/* <div>T</div>
           <div>W</div>
           <div>T</div>
           <div>F</div>
           <div>S</div>
-          <div>S</div>
+          <div>S</div> */}
         </div>
       </div>
 

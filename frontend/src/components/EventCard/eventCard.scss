@@ -101,10 +101,14 @@
     object-position: top;
   }
 
-  .date-week {
+  &__date-week {
     display: grid;
     grid-template-columns: repeat(7, 16px);
     justify-content: end;
+
+    .is-active {
+      background-color: red;
+    }
   }
 
   &__description {
