@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using System.Linq;
 
 namespace Application.Services.Implementation
 {
@@ -15,16 +16,19 @@ namespace Application.Services.Implementation
         public EventsService(IEventsRepository eventsRepository, IHttpContextAccessor context)
         {
             _eventsRepository = eventsRepository;
-            _currentUserId = Guid.Parse(context.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            if(Guid.TryParse(context.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value, out Guid userId))
+            {
+                _currentUserId = userId;
+            }
         }
 
-        public Task<Event> GetFullEventAsync(Guid id) => 
+        public Task<Event> GetFullEventAsync(Guid id) =>
             _eventsRepository.GetFullEventAsync(id);
 
-        public Task<IReadOnlyCollection<Event>> GetEventsHostedByCurrentUserIdAsync() => 
+        public Task<IReadOnlyCollection<Event>> GetEventsHostedByCurrentUserIdAsync() =>
             _eventsRepository.GetFullEventsHostedByUserId(_currentUserId);
 
-        public Task<IReadOnlyCollection<Event>> GetEventsSubscribedByCurrentUserAsync() => 
+        public Task<IReadOnlyCollection<Event>> GetEventsSubscribedByCurrentUserAsync() =>
             _eventsRepository.GetFullEventsSubscribedByUserId(_currentUserId);
 
         public Task<IReadOnlyCollection<Guid>> GetCurrentUserFriendsSubscribedToEventAsync(Guid eventId) =>
@@ -40,7 +44,34 @@ namespace Application.Services.Implementation
         public Task UpdateEventAsync(Event eventToUpdate) =>
             _eventsRepository.Update(eventToUpdate);
 
-        public Task SetInterestsAsync(Guid eventId, IReadOnlyCollection<string> interests) => 
+        public Task SetInterestsAsync(Guid eventId, IReadOnlyCollection<string> interests) =>
             _eventsRepository.UpdateInterestsAsync(eventId, interests);
+
+        public async Task<IReadOnlyCollection<Event>> GetFilteredEventsAsync(SearchFilter search)
+        {
+            var events = (await _eventsRepository.GetAllFullEventsPagedAsync()).ToList();
+            IEnumerable<Event> filteredEvents = events;
+
+            if (!string.IsNullOrEmpty(search.TextToSearch))
+            {
+                filteredEvents = filteredEvents.Where(s => s.Title.Contains(search.TextToSearch) || s.Description.Contains(search.TextToSearch));
+            }
+
+            if (search.StartDate.HasValue)
+            {
+                filteredEvents = filteredEvents.Where(s => s.StartDate > search.StartDate.Value).ToList();
+            }
+
+            if (search.EndDate.HasValue)
+            {
+                filteredEvents = filteredEvents.Where(s => s.StartDate < search.EndDate.Value).ToList();
+            }
+
+            if (search.Interests is not null && search?.Interests?.Count > 0)
+            {
+                filteredEvents = filteredEvents.Where(s => s.Interests.Any(s => search.Interests.Contains(s.Name))).ToList();
+            }
+            return filteredEvents.Skip(search.Skip).Take(search.Take).ToList();
+        }
     }
 }

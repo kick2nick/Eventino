@@ -12,5 +12,6 @@ namespace Dal.Repositories
         public Task<IReadOnlyCollection<Event>> GetFullEventsSubscribedByUserId(Guid userId);
         public Task<IReadOnlyCollection<Guid>> GetFriendsSubscribedToEvent(Guid userId, Guid eventId);
         public Task UpdateInterestsAsync(Guid eventId, IReadOnlyCollection<string> interests);
+        public Task<IReadOnlyCollection<Event>> GetAllFullEventsPagedAsync();
     }
 }

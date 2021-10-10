@@ -2,7 +2,6 @@
 using AutoMapper;
 using Domain.Entities;
 using EventinoApi.Models;
-using EventinoApi.Models;
 using EventinoApi.Models.Out;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,7 +14,7 @@ using System.Threading.Tasks;
 namespace EventinoApi.Controllers
 {
     [Route("api/[controller]")]
-    [AllowAnonymous]
+    [Authorize]
     [ApiController]
     public class EventsController : ControllerBase
     {
@@ -28,6 +27,7 @@ namespace EventinoApi.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<OutEvent>> GetEvent([FromRoute] Guid id) =>
@@ -113,6 +113,13 @@ namespace EventinoApi.Controllers
             await _eventsService.SetInterestsAsync(eventToUpdate.Id, eventToUpdate.Interests);
             await _eventsService.UpdateEventAsync(eventBefore);
             return Ok();
+        }
+
+        [HttpPost("Search")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IReadOnlyCollection<OutEvent>>> GetFilteredEvents([FromBody] SearchFilter search)
+        {
+            return Ok(_mapper.Map<IReadOnlyCollection<OutEvent>>(await _eventsService.GetFilteredEventsAsync(search)));
         }
     }
 }
