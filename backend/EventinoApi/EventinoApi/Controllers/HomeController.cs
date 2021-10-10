@@ -13,6 +13,7 @@ namespace EventinoApi.Controllers
         [Route("Home")]
         [Route("Home/Index")]
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
