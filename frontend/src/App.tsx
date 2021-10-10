@@ -2,9 +2,11 @@ import React, { FC } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.scss';
+
 import Main from './components/Main/Main';
 import MyProfile from './components/MyProfile/MyProfile';
 import Header from './components/Header/Header';
+import Auth from './components/Modals/Auth/Auth';
 
 
 const App: FC = () => {
@@ -25,8 +27,9 @@ const App: FC = () => {
           </Route>
           <Redirect to="/" />
         </Switch>
-
         <footer />
+        <Auth />
+
       </BrowserRouter>
     </div>
   );

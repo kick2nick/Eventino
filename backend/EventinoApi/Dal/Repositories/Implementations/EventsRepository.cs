@@ -70,10 +70,16 @@ namespace Dal.Repositories
             foreach (var interest in interests)
             {
                 var interestEntity = _context.Set<Interest>().FirstOrDefault(s => s.Name == interest);
-      
+
                 eventToUpdate.Interests.Add(interestEntity);
             }
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IReadOnlyCollection<Event>> GetAllFullEventsPagedAsync() =>
+            await _context.Set<Event>()
+                 .Include(s => s.Attendees)
+                 .Include(s => s.Interests)
+                 .ToListAsync();
     }
 }

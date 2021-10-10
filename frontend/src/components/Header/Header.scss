@@ -1,0 +1,20 @@
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  padding: 5px;
+}
+
+.header__background{
+  background-color: #005005;
+}
+
+.header__button{
+  background-color: inherit;
+  color:white;
+  &:hover{
+    color: #3ae738;
+    border: 1px solid #3ae738 ;
+  }
+}

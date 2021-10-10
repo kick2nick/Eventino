@@ -14,5 +14,6 @@ namespace Application.Services
         public ValueTask<Guid> CreateEventAsync(Event eventToCreate);
         public Task UpdateEventAsync(Event eventToUpdate);
         public Task SetInterestsAsync(Guid eventId,  IReadOnlyCollection<string> interests);
+        public Task<IReadOnlyCollection<Event>> GetFilteredEventsAsync(SearchFilter search);
     }
 }

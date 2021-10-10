@@ -1,4 +1,5 @@
 ﻿using Dal;
+using Dal.Repositories;
 using Domain.Entities;
 using System;
 using System.Linq;
