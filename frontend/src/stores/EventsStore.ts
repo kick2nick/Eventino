@@ -9,17 +9,16 @@ class EventsStore {
 
   constructor() {
     makeAutoObservable(this);
+    this.getAllEvents();
   }
 
   async getAllEvents() {
     const resHeaders = new Headers();
-
-    // try {
-    // this.isLoading = true;
     const res = await fetch(`${this.baseUrl}/Events/Search`, {
       method: 'POST',
       headers: {
-        ...resHeaders, 'Accept': 'application/json',
+        ...resHeaders,
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -27,27 +26,8 @@ class EventsStore {
         'take': 1000,
       }),
     });
-    const myRes = await res.json();
 
-    console.log(myRes);
-
-    this.allEvents = myRes;
-    // } catch(err) {
-    //   console.log(`We have some problem with geting events, response: ${err}`);
-    //   throw err;
-    // } finally {
-    //   this.isLoading = false;
-    // }
-
-
-
-    // this.allEvents = await res.json();
-    // const myRes = await res.json();
-    // console.log(myRes);
-
-    // this.allEvents = myRes;
-
-    // return res.json();
+    this.allEvents = await res.json();
   }
 
 }

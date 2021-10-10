@@ -2,17 +2,6 @@
 import React, { FC } from 'react';
 import './eventCard.scss';
 import { Link } from 'react-router-dom';
-// export interface IEventCard {
-//   id: string,
-//   title: string,
-//   date?: any,    // new Date
-//   img?: string,
-//   description?: string,
-//   tags?: Array<string>,    // string[]
-//   watchCount?: number,
-//   friendsSubscr?: Array<string>
-// }
-
 export interface IEventCard {
   id: string,
   hostId?: string,
@@ -31,16 +20,16 @@ export interface IEventCard {
   viewsCount?: number
 }
 
-const EventCard: FC<IEventCard> = () => {
-
-  // console.log(id);
-  const title = 'title';
-  const watchCount = 0;
-  const date = 0;
-  const img = 'https://cdn1.flamp.ru/e99752ed0f4211de562238f7d1b3faef.jpg';
-  const interests = [{ tag: 'Sports' }];
-  const description = 'description';
-  const friendsSubscr = ['friendsSubscr', 'friendsSubscr'];
+const EventCard: FC<IEventCard> = ({
+  title,
+  id,
+  viewsCount,
+  startDate,
+  photoUrl,
+  interests,
+  description,
+  friendsSubscr,
+}) => {
 
   return (
     <div className='card Card' >
@@ -49,15 +38,16 @@ const EventCard: FC<IEventCard> = () => {
         <h3 className='card__title'>{title}</h3>
         <div className='card__watch-count watch-count'>
           <img className='watch-count__icon' src='/icons/eye.png' width='22' height='15' />
-          <div>{watchCount}</div>
+          <div>{viewsCount}</div>
         </div>
         <div className='card__date date'>
           <div className='img-container'>
             <img className='date__icon' src='/icons/date.png' width='20' height='20' />
           </div>
-          <div>{date}</div>
+          <div>{startDate}</div>
         </div>
         <div className='card__date-week date-week'>
+          {/* функция генерации стиля на основе даты начала-даты конца и сопоставления с днями недели */}
           <div className='is-active'>M</div>
           <div>T</div>
           <div>W</div>
@@ -68,14 +58,14 @@ const EventCard: FC<IEventCard> = () => {
         </div>
       </div>
 
-      <img src={img} className='card__img' />
+      <img src={photoUrl} className='card__img' />
 
       <div className='card__bottom-group'>
         <p className='card__description'>{description}</p>
-        {interests.map(tag => <button className='card__tag button is-rounded' key={tag.tag}>
-          <img className='tag__icon' src={`/icons/${tag.tag}.svg`} />{tag.tag}
+        {interests?.map(tag => <button className='card__tag button is-rounded' key={id}>
+          <img className='tag__icon' src={`/icons/${tag}.svg`} />{tag}
         </button>)}
-        <Link to='' className='card__friends-subscr'>{friendsSubscr.length} friends subscribed</Link>
+        <Link to='' className='card__friends-subscr'>{friendsSubscr?.length} friends subscribed</Link>
         <Link to='' className='card__link'>Subscribe</Link>
         <Link to='' className='card__link'>See more</Link>
       </div>
