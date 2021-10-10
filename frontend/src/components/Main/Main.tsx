@@ -10,14 +10,29 @@ const Main: FC = observer(() => {
   const title = 'Popular';
   const eventsPopular: Array<IEventCard> = [];
 
-  const [allEvents, setAllEvents] = useState<any[]>([]);
+  // const [allEvents, setAllEvents] = useState<any[]>([]);
 
-  useEffect(() => {
-    console.log('~~~~~~~~~~');
-    eventsStore.getAllEvents();
-    setAllEvents([...eventsStore.allEvents]);
-    console.log(eventsStore.allEvents);
-  }, [eventsStore.allEvents]);
+  const allEvents = [
+    {
+      title: 'title',
+      id: 'id',
+    },
+    {
+      title: 'title',
+      id: 'id',
+    },
+    {
+      title: 'title',
+      id: 'id',
+    },
+  ];
+
+  // useEffect(() => {
+  //   console.log('~~~~~~~~~~');
+  //   eventsStore.getAllEvents();
+  //   setAllEvents([...eventsStore.allEvents]);
+  //   console.log(eventsStore.allEvents);
+  // }, [eventsStore.allEvents]);
 
   // fix: DRY
   return (
@@ -40,24 +55,31 @@ const Main: FC = observer(() => {
             : <div>Loading...</div>}
         </div> */}
 
+        <div className='events-group'>
+          {allEvents.map(eventCard => {
+            return (<EventCard
+              title={eventCard.title}
+              key={eventCard.id}
+              id={eventCard.id} />);
+          })}
+        </div>
+
         <button className='button button--more'>more events</button>
       </section>
 
       <div className='events-by-type'>
         <h2 className='events-by-type__title'>{title}</h2>
 
+
         <div className='events-group'>
-          <div className='events-group'>
-
-            {allEvents.map(eventCard => {
-              return (<EventCard
-                title={eventCard.title}
-                key={eventCard.id}
-                id={eventCard.id} />);
-            })}
-
-          </div>
+          {allEvents.map(eventCard => {
+            return (<EventCard
+              title={eventCard.title}
+              key={eventCard.id}
+              id={eventCard.id} />);
+          })}
         </div>
+
 
         <button className='button button--more'>more events</button>
       </div>

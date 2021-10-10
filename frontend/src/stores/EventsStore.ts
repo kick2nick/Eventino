@@ -29,7 +29,6 @@ class EventsStore {
     });
     const myRes = await res.json();
 
-    console.log(Array.isArray(myRes));
     console.log(myRes);
 
     this.allEvents = myRes;

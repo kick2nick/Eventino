@@ -37,8 +37,8 @@ const EventCard: FC<IEventCard> = () => {
   const title = 'title';
   const watchCount = 0;
   const date = 0;
-  const img = 'sdsd';
-  const interests = [{ id: 1, tag: '' }];
+  const img = 'https://cdn1.flamp.ru/e99752ed0f4211de562238f7d1b3faef.jpg';
+  const interests = [{ tag: 'Sports' }];
   const description = 'description';
   const friendsSubscr = ['friendsSubscr', 'friendsSubscr'];
 
@@ -72,8 +72,8 @@ const EventCard: FC<IEventCard> = () => {
 
       <div className='card__bottom-group'>
         <p className='card__description'>{description}</p>
-        {interests.map(tag => <button className='card__tag button is-rounded' key={tag.id}>
-          <img className='tag__icon' src={`/icons/${tag}.svg`} />{tag}
+        {interests.map(tag => <button className='card__tag button is-rounded' key={tag.tag}>
+          <img className='tag__icon' src={`/icons/${tag.tag}.svg`} />{tag.tag}
         </button>)}
         <Link to='' className='card__friends-subscr'>{friendsSubscr.length} friends subscribed</Link>
         <Link to='' className='card__link'>Subscribe</Link>
