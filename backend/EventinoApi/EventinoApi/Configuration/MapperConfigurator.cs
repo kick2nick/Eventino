@@ -36,10 +36,7 @@ namespace EventinoApi.Configuration
             expression.CreateMap<InputUserDto, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.PhotoFileName))
-                .ForMember(dest => dest.Interests, opt => opt.MapFrom(src => src.InterestIds.Select(x => new Interest
-                    {
-                        Id = x
-                    }).ToArray()));
+                .ForMember(dest => dest.Interests, opt => opt.MapFrom(src => src.Interests.Select(s => new Interest(){ Name = s })));
         }
 
         private static void MapperOutEventConfiguration(IMapperConfigurationExpression expression)
