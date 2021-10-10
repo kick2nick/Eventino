@@ -2,18 +2,28 @@ import { makeAutoObservable } from 'mobx';
 
 class CurrentUser {
 
+  isAuth = true;
+
   id = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
 
-  email = 'string';
+  email = 'email';
 
-  name = 'string';
+  name = 'Name';
 
-  photoFileName = 'string';
+  photoFileName = 'avatar.png';
 
   interests = [
     {
       id: 0,
-      name: 'string',
+      name: 'Music',
+    },
+    {
+      id: 1,
+      name: 'Party',
+    },
+    {
+      id: 2,
+      name: 'Outdoor',
     },
   ];
 
@@ -24,6 +34,14 @@ class CurrentUser {
 
   getCurrentUser() {
 
+  }
+
+  login() {
+    this.isAuth = true;
+  }
+
+  logout() {
+    this.isAuth = false;
   }
 
   updateCurrentUser() {
