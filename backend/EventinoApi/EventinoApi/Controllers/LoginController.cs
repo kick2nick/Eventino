@@ -1,7 +1,5 @@
 ﻿using Application.Services;
 using Domain.Entities;
-using EventinoApi.Models.Out;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -40,10 +38,10 @@ namespace EventinoApi.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("googleLogin")]
+        [Route("google")]
         public IActionResult GoogleLogin()
         {
-            string redirectUrl = Url.Action("GoogleResponse", "Account");
+            string redirectUrl = Url.Action("GoogleResponse", "Login");
             var authenticationScheme = GoogleDefaults.AuthenticationScheme;
 
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(authenticationScheme, redirectUrl);
@@ -53,15 +51,21 @@ namespace EventinoApi.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("~/Account/GoogleResponse")]
         public async Task<IActionResult> GoogleResponse()
         {
             ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
+            {
                 return RedirectToAction(nameof(Login));
+            }
 
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
-            string[] userInfo = { info.Principal.FindFirst(ClaimTypes.Name).Value, info.Principal.FindFirst(ClaimTypes.Email).Value };
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, info.AuthenticationProperties.IsPersistent);
+            string[] userInfo =
+            {
+                info.Principal.FindFirst(ClaimTypes.Name).Value,
+                info.Principal.FindFirst(ClaimTypes.Email).Value
+            };
+
             if (result.Succeeded)
             {
                 return Ok(userInfo);
@@ -101,7 +105,7 @@ namespace EventinoApi.Controllers
             {
                 return Unauthorized();
             }
-            var token =  await _signInManager.UserManager.GenerateEmailConfirmationTokenAsync(user);
+            var token = await _signInManager.UserManager.GenerateEmailConfirmationTokenAsync(user);
             var confirmationLink = Url.Action("ConfirmEmail", "Login", new { userId = user.Id, token = token }, Request.Scheme);
 
             await EmailService.SendConfirmationEmailAsync(user.Email, confirmationLink);
