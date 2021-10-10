@@ -9,6 +9,6 @@ namespace EventinoApi.Models.Out
         public string Email { get; set; }
         public string Name { get; set; }
         public string PhotoFileName { get; set; }
-        public IReadOnlyCollection<OutInterest> Interests { get; set; }
+        public IReadOnlyCollection<string> Interests { get; set; }
     }
 }

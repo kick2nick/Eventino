@@ -1,6 +1,7 @@
 ﻿using Dal.DbContext;
 using Domain.Entities;
 using Domain.Enums;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,13 +10,17 @@ namespace EventinoApi
 {
     public static class Seed
     {
-        public static async Task SeedData(EventinoDbContext dbContext)
+        public static async Task SeedData(EventinoDbContext dbContext, UserManager<User> userManager)
         {
             #region create Users
             var IvanIvanov = new User() { UserName = "Ivan Ivanov", Email = "ivan_ivanov@email.com", SubscribedEvents = new List<Event>(), Interests = new List<Interest>() };
             var OlegTarusov = new User() { UserName = "Oleg Tarusov", Email = "oleg_tarusov@email.com", SubscribedEvents = new List<Event>(), Interests = new List<Interest>() };
             var NikolayKuksov = new User() { UserName = "Nikolay Kuksov", Email = "nikolay_kuksov@email.com", SubscribedEvents = new List<Event>(), Interests = new List<Interest>() };
             var VladislavCheliadin = new User() { UserName = "Vladislav Cheliadin", Email = "vladialv_cheliadin@email.com", SubscribedEvents = new List<Event>(), Interests = new List<Interest>() };
+            await userManager.CreateAsync(IvanIvanov, "12345678@aA");
+            await userManager.CreateAsync(OlegTarusov, "12345678@aA");
+            await userManager.CreateAsync(NikolayKuksov, "12345678@aA");
+            await userManager.CreateAsync(VladislavCheliadin, "12345678@aA");
             #endregion
 
             #region cretae Interests
