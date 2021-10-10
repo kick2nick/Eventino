@@ -1,9 +1,11 @@
+﻿using Application.Configuration;
+using Dal.Configuration;
 using Dal.DbContext;
-using Application.Configuration;
 using Domain.Entities;
 using EventinoApi.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
-using Dal.Configuration;
 
 namespace EventinoApi
 {
@@ -73,6 +74,10 @@ namespace EventinoApi
                 app.UseHttpStatusCodeExceptionMiddleware();
             }
 
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Lax,
+            });
 
             app.UseStaticFiles();
             app.UseDefaultFiles();
@@ -87,7 +92,7 @@ namespace EventinoApi
 
         private void ConfigureInMemoryDbContext(IServiceCollection services)
         {
-            services.AddDbContext<EventinoDbContext>(opt => 
+            services.AddDbContext<EventinoDbContext>(opt =>
                 opt.UseInMemoryDatabase("EventinoDb"));
         }
 
@@ -102,7 +107,7 @@ namespace EventinoApi
         private void ConfigureIdentity(IServiceCollection services)
         {
             services.AddIdentity<User, IdentityRole<Guid>>(
-                options => options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ")
+                options => options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя")
                 .AddEntityFrameworkStores<EventinoDbContext>()
                 .AddDefaultTokenProviders();
         }

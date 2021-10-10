@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Net.Mime;
 
@@ -9,6 +10,7 @@ namespace EventinoApi.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return PhysicalFile(Path.Combine(Directory.GetCurrentDirectory(),
