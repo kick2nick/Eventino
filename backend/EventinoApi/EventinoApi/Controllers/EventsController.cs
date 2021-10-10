@@ -27,7 +27,7 @@ namespace EventinoApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{guid}")]
+        [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<OutEvent>> GetEvent([FromRoute] Guid id) =>

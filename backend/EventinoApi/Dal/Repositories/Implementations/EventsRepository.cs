@@ -38,8 +38,8 @@ namespace Dal.Repositories
         public Task<Event> GetFullEventAsync(Guid id)
         {
             return _context.Set<Event>()
-                .Include(s => s.Attendees)
-                .ThenInclude(s => s.Interests)
+                .Include(s => s.Interests)
+                .Include(s => s.Interests)
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 
@@ -61,7 +61,11 @@ namespace Dal.Repositories
         public async Task UpdateInterestsAsync(Guid eventId, IReadOnlyCollection<string> interests)
         {
             var eventToUpdate = await GetFullEventAsync(eventId);
+
+            if (eventToUpdate.Interests is null)
                 eventToUpdate.Interests = new Collection<Interest>();
+            else
+                eventToUpdate.Interests.Clear();
 
             foreach (var interest in interests)
             {
