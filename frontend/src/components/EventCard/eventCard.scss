@@ -2,7 +2,7 @@
 
 .card {
   width: 344px;
-  height: 480px;
+  // height: 480px;
 
   &__top-group {
     display: grid;
@@ -22,6 +22,20 @@
 
     .card__description {
       margin: 0 0 20px;
+      height: 62px;
+      overflow: hidden;
+      position: relative;
+      &:after {
+        content: "";
+        text-align: right;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 1.2em;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 70%);
+        pointer-events: none;
+      }
     }
     .card__friends-subscr {
       display: block;

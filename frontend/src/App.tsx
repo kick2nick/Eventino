@@ -6,6 +6,7 @@ import './App.scss';
 import Main from './components/Main/Main';
 import MyProfile from './components/MyProfile/MyProfile';
 import Header from './components/Header/Header';
+import EventViewPage from './components/EventViewPage/EventViewPage';
 import Auth from './components/Modals/Auth/Auth';
 import Footer from './components/Footer/Footer';
 
@@ -26,7 +27,11 @@ const App: FC = () => {
           <Route path="/myProfile" exact>
             {myProfilePage}
           </Route>
-          <Redirect to="/" />
+
+          <Route path='/event'>
+            <EventViewPage />
+          </Route>
+          {/* <Redirect to="/" /> */}
         </Switch>
         <Footer />
         <Auth />
