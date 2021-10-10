@@ -43,7 +43,7 @@ namespace EventinoApi
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
                     options.SignInScheme = IdentityConstants.ExternalScheme;
                 });
-
+            services.AddHttpContextAccessor();
             services.AddControllers();
 
             services.AddHttpContextAccessor();
