@@ -32,7 +32,7 @@ const EventCard: FC<IEventCard> = ({
   friendsSubscr,
 }) => {
 
-  const startDateDay = new Date(startDate!).getDay();
+  const date = new Date(startDate!);
   const weeks = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   return (
@@ -48,10 +48,10 @@ const EventCard: FC<IEventCard> = ({
           <div className='img-container'>
             <img className='date__icon' src='/icons/date.png' width='20' height='20' />
           </div>
-          <div>{startDate}</div>
+          <div>{date.toDateString()}</div>
         </div>
         <div className='card__date-week date-week'>
-          {weeks.map((weekday, i) => <div className={startDateDay === i ? 'is-active' : ''} key={i}>{weekday}</div>)}
+          {weeks.map((weekday, i) => <div className={date.getDay() === i ? 'is-active' : ''} key={i}>{weekday}</div>)}
         </div>
       </div>
 
