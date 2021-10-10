@@ -2,7 +2,6 @@
 using AutoMapper;
 using Domain.Entities;
 using EventinoApi.Models;
-using EventinoApi.Models;
 using EventinoApi.Models.Out;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

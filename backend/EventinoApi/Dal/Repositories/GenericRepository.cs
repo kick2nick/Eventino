@@ -31,6 +31,7 @@ namespace Dal
 
         public virtual Task Update(T entity)
         {
+            //_context.Set<T>().Update(entity);
             // In case AsNoTracking is used
             _context.Entry(entity).State = EntityState.Modified;
             return _context.SaveChangesAsync();

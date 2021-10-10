@@ -1,10 +1,13 @@
 ﻿using Application.Services;
 using AutoMapper;
+using Domain.Entities;
+using EventinoApi.Models.Input;
 using EventinoApi.Models.Out;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EventinoApi.Controllers
@@ -26,11 +29,26 @@ namespace EventinoApi.Controllers
         }
 
         [HttpGet]
+        public async Task<ActionResult<OutUser>> GetCurrentUser()
+        {
+            var userId = Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+            return Ok(_mapper.Map<OutUser>(await _userService.GetUserByIdAsync(userId)));
+        }
+
+        [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<OutUser>> GetUserById(Guid id)
         {
-            var user = _mapper.Map<OutUser>(await _userService.GetUserByIdAsync(id));
-            return user;
+            return Ok(_mapper.Map<OutUser>(await _userService.GetUserByIdAsync(id)));
+        }
+
+        [HttpPatch]
+        public async Task<ActionResult> UpdateUserData([FromQuery] InputUserDto inputUser)
+        {
+            var user = _mapper.Map<User>(inputUser);
+            var updatedUser = _mapper.Map<OutUser>(await _userService.UpdateUserAsync(user));
+            return Ok(updatedUser);
         }
     }
 }
