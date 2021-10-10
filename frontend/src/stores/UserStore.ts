@@ -12,6 +12,8 @@ class CurrentUser {
 
   photoFileName = 'avatar.png';
 
+  modal = 'close';
+
   interests = [
     {
       id: 0,
@@ -42,6 +44,19 @@ class CurrentUser {
 
   logout() {
     this.isAuth = false;
+  }
+
+  closeModal() {
+    this.modal = 'close';
+  }
+
+  openLogIn() {
+    this.modal = 'login';
+    console.log(this.modal);
+  }
+
+  openSignUp() {
+    this.modal = 'signup';
   }
 
   updateCurrentUser() {
