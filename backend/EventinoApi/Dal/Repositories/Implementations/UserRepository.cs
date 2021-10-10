@@ -18,7 +18,7 @@ namespace Dal
         }
 
         public new Task<User> GetById(Guid id)
-            => Users.Include(u => u.Interests).Where(x => id.Equals(x.Id)).FirstOrDefaultAsync();
+            => Users.AsNoTracking().Include(u => u.Interests).Where(x => id.Equals(x.Id)).FirstOrDefaultAsync();
 
         public async Task AddFriendAsync(Guid userId, Guid friendId)
         {

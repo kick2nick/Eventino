@@ -1,4 +1,5 @@
 ﻿using Dal.Repositories;
+using Dal.Repositories.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Dal.Configuration
@@ -9,6 +10,7 @@ namespace Dal.Configuration
         {
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IEventsRepository, EventsRepository>();
+            services.AddTransient<IInterestRepository, InterestRepository>();
         }
     }
 }
