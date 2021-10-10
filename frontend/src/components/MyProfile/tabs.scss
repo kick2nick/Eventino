@@ -1,0 +1,23 @@
+.tabs {
+  height: 88px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 114%;
+
+  text-align: center;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.87);
+
+  li a {
+    border-width: 3px;
+    border-color: transparent;
+  }
+
+  li.is-active a {
+    border-bottom-color: #2e7d32;
+    border-width: 3px;
+    color: #2e7d32;
+    color: #2e7d32;
+  }
+}
