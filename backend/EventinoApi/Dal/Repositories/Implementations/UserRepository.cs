@@ -4,6 +4,7 @@ using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -60,6 +61,17 @@ namespace Dal
                 .Where(s => s.User1.Id == userId)
                 .Select(s => s.User2.Id)
                 .ToListAsync();
+        }
+
+        public async Task SetUserInterests(IReadOnlyCollection<string> interests, Guid userId)
+        {
+            var user = await _context.Set<User>().Include(s => s.Interests).FirstOrDefaultAsync(s => s.Id == userId);
+
+            var interestsToAdd = await _context.Set<Interest>().AsQueryable().Where(s => interests.Any(x => x == s.Name)).ToListAsync();
+
+            user.Interests = new Collection<Interest>(interestsToAdd);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -10,5 +10,6 @@ namespace Dal
         Task<IReadOnlyCollection<Guid>> GetUserFriendsAsync(Guid userId);
         Task AddFriendAsync(Guid userId, Guid friendId);
         Task DeleteFriendAsync(Guid userId, Guid friendId);
+        Task SetUserInterests(IReadOnlyCollection<string> interests, Guid userId);
     }
 }
