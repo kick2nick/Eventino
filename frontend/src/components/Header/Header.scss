@@ -17,4 +17,13 @@
     color: #3ae738;
     border: 1px solid #3ae738 ;
   }
+  &:focus{
+    color: #3ae738;
+    border: 1px solid #3ae738 ;
+  }
+}
+.header__photo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

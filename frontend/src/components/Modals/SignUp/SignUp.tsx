@@ -20,12 +20,12 @@ export const SignUp: FC = () => {
 
 
   const handleClickSubmit = () => authApi.postRegister(fullName, email).then(data => {
-    if (typeof data === 'string') currentUser.closeModal();
+    if (typeof data === 'string') currentUser.closeModalAndAuth();
     else setErrRequest('Somthing heppend!');
   }).catch(() => setErrRequest('Somthing heppend!'));
 
   const handleClickGoogle = () => authApi.getGoogleLogIn().then(data => {
-    if (typeof data === 'string') currentUser.closeModal();
+    if (typeof data === 'string') currentUser.closeModalAndAuth();
     else setErrRequest('Somthing heppend!');
   }).catch(() => setErrRequest('Somthing heppend!'));
 
