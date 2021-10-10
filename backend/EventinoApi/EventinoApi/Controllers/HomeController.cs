@@ -1,20 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
-using System.Net.Mime;
 
 namespace EventinoApi.Controllers
 {
-    [Route("/")]
+    [Route("")]
     [ApiController]
+    [AllowAnonymous]
     public class HomeController : ControllerBase
     {
+        [Route("")]
+        [Route("Home")]
+        [Route("Home/Index")]
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult Index()
         {
-            return PhysicalFile(Path.Combine(Directory.GetCurrentDirectory(),
-                "wwwroot", "index.html"), MediaTypeNames.Text.Html);
+            var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            var file = Path.Combine(folder, "index.html");
+
+            return PhysicalFile(file, "text/html");
         }
     }
 }

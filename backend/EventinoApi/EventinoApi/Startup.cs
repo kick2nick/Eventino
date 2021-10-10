@@ -80,14 +80,18 @@ namespace EventinoApi
             });
 
             app.UseStaticFiles();
-            app.UseDefaultFiles();
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}");
+            });
         }
 
         private void ConfigureInMemoryDbContext(IServiceCollection services)
