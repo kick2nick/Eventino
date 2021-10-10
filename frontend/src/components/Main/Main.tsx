@@ -6,36 +6,58 @@ import { IEventCard, EventCard } from '../EventCard/EventCard';
 import eventsStore from '../../stores/EventsStore';
 import './main.scss';
 import { Input } from 'antd';
-import { Calendar } from 'react-date-range';
+// import { Calendar } from 'react-date-range';
+import 'antd/dist/antd.css';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DatePicker, Space } from 'antd';
+
 
 const Main: FC = observer(() => {
   const title = 'Popular';
   const eventsPopular: Array<IEventCard> = [];
 
+
+  const { RangePicker } = DatePicker;
+
   const { Search } = Input;
 
   const [allEvents, setAllEvents] = useState<any[]>([]);
+
+  const onChange = (value: any, dateString: any) => {
+    console.log('Selected Time: ', value);
+    console.log('Formatted Selected Time: ', dateString);
+  };
+  
+  const onOk = (value: any) => {
+    console.log('onOk: ', value);
+  };
 
   useEffect(() => {
     setAllEvents([...eventsStore.allEvents]);
   }, [eventsStore.allEvents]);
 
+  const onPanelChange = (date: any) => {
+    console.log(date); // native Date object
+  };
+
   const onSearch = () => {
     // to fill
   };
-
+const size = 'default';
   // fix: DRY
   return (
     <main className='main'>
       <FilterBar />
 
-      <Search placeholder="input search text" onSearch={onSearch} enterButton />
-      <Calendar
-        date={new Date()}
-        // onChange={this.handleSelect}
-      />
-      <div>Здесь короче строка поиска и всякая фигня (дата)</div>
-
+      <div className="search-and-calendar">
+        <Search placeholder="SEARCH EVENT" allowClear onSearch={onSearch} className="search" />
+        <div className="site-calendar-demo-card">
+        <Space direction="vertical" size={12}>
+        <RangePicker />
+        </Space>
+        </div>
+      </div>
       <section className='events-by-type'>
         <h2 className='events-by-type__title'>{title}</h2>
         {/* <div>блок с сортировкой</div> */}
