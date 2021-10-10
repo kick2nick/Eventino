@@ -38,7 +38,7 @@ namespace EventinoApi.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("google")]
+        [Route("googleLogin")]
         public IActionResult GoogleLogin()
         {
             string redirectUrl = Url.Action("GoogleResponse", "Login");
@@ -60,15 +60,10 @@ namespace EventinoApi.Controllers
             }
 
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, info.AuthenticationProperties.IsPersistent);
-            string[] userInfo =
-            {
-                info.Principal.FindFirst(ClaimTypes.Name).Value,
-                info.Principal.FindFirst(ClaimTypes.Email).Value
-            };
 
             if (result.Succeeded)
             {
-                return Ok(userInfo);
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -86,7 +81,7 @@ namespace EventinoApi.Controllers
                     if (identResult.Succeeded)
                     {
                         await _signInManager.SignInAsync(user, false);
-                        return Ok(userInfo);
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 return BadRequest();
