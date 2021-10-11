@@ -83,7 +83,7 @@ const EventViewPage: FC = observer(() => {
   };
 
   return (
-    <section>
+    <section className='sectionEvent'>
       <h2 className='event-title'>{eventStore.title}</h2>
 
       <div className="event-view-page container">
